@@ -153,6 +153,7 @@ section{padding:96px 0}
 .opt.sel .mark{border-color:var(--brand-mud);border-width:5px}
 .opt .lab{flex:1}
 .opt .lab small{display:block;font-size:14px;color:var(--fg-3);margin-top:2px}
+.nudge{font-size:14px;color:var(--fg-3);margin-top:16px;font-style:normal}
 .q-nav{display:flex;gap:12px;margin-top:28px;align-items:center}
 .back{background:none;border:0;color:var(--fg-3);cursor:pointer;font-family:var(--font-body);
   font-size:15px;padding:8px 2px;transition:color var(--dur) var(--ease)}
@@ -166,6 +167,22 @@ section{padding:96px 0}
   border-radius:var(--radius-sm);padding:13px 14px;color:var(--fg-1);
   font-family:var(--font-body);font-size:16px}
 .field select:focus{outline:none;border-color:var(--brand-mud);box-shadow:var(--shadow-focus)}
+
+/* searchable city picker */
+.city-field{position:relative;margin-bottom:8px}
+.field input[type=text]{width:100%;background:var(--bg-surface);
+  border:1px solid var(--border-soft);border-radius:var(--radius-sm);
+  padding:13px 14px;color:var(--fg-1);font-family:var(--font-body);font-size:16px}
+.field input[type=text]:focus{outline:none;border-color:var(--brand-mud);box-shadow:var(--shadow-focus)}
+.field input[type=text]:disabled{background:var(--bg-sunken);color:var(--fg-3);cursor:not-allowed}
+.city-list{position:absolute;left:0;right:0;top:100%;margin-top:4px;z-index:20;
+  max-height:264px;overflow-y:auto;background:var(--bg-surface);
+  border:1px solid var(--border-soft);border-radius:var(--radius-sm);
+  box-shadow:var(--shadow-md);-webkit-overflow-scrolling:touch}
+.city-opt{display:block;width:100%;text-align:left;background:none;border:0;cursor:pointer;
+  padding:11px 14px;font-family:var(--font-body);font-size:15.5px;color:var(--fg-1)}
+.city-opt:hover{background:var(--mud-50)}
+.city-opt+.city-opt{border-top:1px solid var(--border-hair)}
 .err{color:#A83224;font-size:14px;min-height:20px;margin-bottom:4px}
 
 /* result */
@@ -347,6 +364,8 @@ footer a{color:var(--fg-brand)}
     </span>
   </div>
 </div>
+<script>var CITY_DATA={"Nagaland":"Chumoukedima|25.81|93.71;Dimapur|25.91|93.72;Kiphire|25.87|94.79;Kohima|25.67|94.11;Longleng|26.49|94.82;Mokokchung|26.32|94.52;Mon|26.74|95.06;Noklak|26.1|95.02;Peren|25.51|93.74;Phek|25.75|94.5;Tseminyu|25.92|94.22;Tuensang|26.27|94.82;Wokha|26.1|94.26;Zunheboto|25.97|94.52","Maharashtra":"Ahmadnagar|19.4|74.65;Akola|20.71|77.0;Amravati Division|20.93|77.76;Bhandara|21.17|79.65;Bid|18.83|75.75;Buldhana|20.58|76.42;Chandrapur|20.12|79.44;Chhatrapati Sambhajinagar (Aurangabad)|19.88|75.34;Dharashiv (Osmanabad)|18.25|76.17;Dhule|20.9|74.78;Gadchiroli|19.8|80.2;Gondiya|21.05|80.25;Hingoli|19.71|77.14;Jalgaon|21.0|75.57;Jalna|19.84|75.89;Kolhapur|16.7|74.23;Latur|18.4|76.57;Mumbai|18.96|72.85;Mumbai Suburban|19.13|72.85;Nagpur Division|21.15|79.11;Nanded|19.16|77.31;Nandurbar|21.37|74.24;Nashik Division|19.98|73.79;Palghar|19.69|72.77;Parbhani|19.27|76.77;Pune Division|18.75|73.75;Raigarh|18.57|73.13;Ratnagiri|16.99|73.31;Sangli|16.85|74.56;Satara Division|17.73|74.06;Sindhudurg|16.17|73.7;Solapur|17.75|75.5;Thane|19.2|72.96;Wardha|20.74|78.6;Washim|20.11|77.13;Yavatmal|20.39|78.13","Puducherry":"Karaikal|10.92|79.83;Mahe|11.7|75.53;Puducherry|11.93|79.83;Yanam|16.73|82.22","Tripura":"Dhalai|23.84|91.93;Gomati|23.53|91.48;Khowai|24.07|91.61;North Tripura|24.36|92.17;Sepahijala|23.61|91.34;South Tripura|23.17|91.61;Unakoti|24.33|92.0;West Tripura|23.89|91.4","Arunachal Pradesh":"Anjaw|28.07|96.83;Changlang|27.36|96.35;Dibang Valley|28.7|95.7;East Kameng|27.3|93.05;East Siang|28.01|95.3;Kamle|27.73|94.09;Kra Daadi|27.69|93.63;Kurung Kumey|28.0|93.39;Lepa Rada|27.93|94.73;Lohit|27.99|96.18;Longding|26.88|95.32;Lower Dibang Valley|28.37|95.88;Lower Siang|27.73|94.58;Lower Subansiri|27.56|93.79;Namsai|27.67|95.86;Pakke Kessang|27.11|93.04;Papum Pare|27.29|93.6;Shi Yomi|28.53|94.37;Siang|28.21|94.99;Tawang|27.66|91.95;Tirap|27.02|95.52;Upper Siang|28.83|94.92;Upper Subansiri|28.3|94.0;West Kameng|27.4|92.35;West Siang|28.14|94.51","Andhra Pradesh":"Alluri Sitharama Raju|17.89|82.21;Anakapalli|17.68|82.79;Anantapur|14.68|77.61;Annamayya|13.91|78.65;Bapatla|15.93|80.39;Chittoor|13.21|79.1;East Godavari|17.08|81.72;Eluru|16.71|81.1;Guntur|16.3|80.46;Kakinada|16.96|82.24;Konaseema|16.64|82.08;Krishna|16.3|81.0;Kurnool|15.83|78.04;NTR|16.82|80.25;Nandyal|15.48|78.48;Nellore|14.45|79.99;Palnadu|16.32|79.7;Parvathipuram Manyam|18.75|83.54;Prakasam|15.5|79.5;Sri Sathya Sai|14.17|77.96;Srikakulam|18.3|83.9;Tirupati|13.64|79.42;Visakhapatnam|17.73|83.27;Vizianagaram|18.12|83.41;West Godavari|16.53|81.62;YSR|14.42|78.75","Sikkim":"Gangtok|27.33|88.61;Gyalshing|27.29|88.26;Mangan|27.51|88.52;Namchi|27.16|88.36;Pakyong|27.23|88.65;Soreng|27.19|88.2","Telangana":"Adilabad|19.67|78.54;Bhadradri Kothagudem|17.55|80.62;Hanamkonda|18.0|79.58;Hyderabad|17.38|78.46;Jagitial|18.79|78.91;Jangoan|17.73|79.16;Jayashankar Bhupalapally|18.44|79.89;Jogulamba Gadwal|16.23|77.81;Kamareddy|18.33|78.33;Karimnagar|18.44|79.13;Khammam|17.25|80.14;Kumuram Bheem Asifabad|19.36|79.29;Mahabubabad|17.6|80.01;Mahbubnagar|16.74|77.99;Mancherial|18.87|79.43;Medak|18.05|78.26;Medchal Malkajgiri|17.61|78.54;Mulugu|18.19|79.94;Nagarkurnool|16.48|78.33;Nalgonda|17.05|79.27;Narayanpet|16.75|77.5;Nirmal|19.1|78.34;Nizamabad|18.67|78.1;Peddapalli|18.62|79.38;Rajanna Sircilla|18.39|78.82;Rangareddi|17.28|78.17;Sangareddy|17.63|78.08;Siddipet|18.1|78.85;Suryapet|17.14|79.62;Vikarabad|17.34|77.9;Wanaparthy|16.36|78.06;Warangal Rural|18.0|79.83;Yadadri Bhuvanagiri|17.51|78.89","Madhya Pradesh":"Agar Malwa|23.72|76.01;Alirajpur|22.3|74.36;Anuppur|23.06|81.68;Ashoknagar|24.58|77.73;Balaghat|21.82|80.19;Barwani|22.02|74.92;Betul|21.9|77.9;Bhind|26.57|78.79;Bhopal|23.25|77.4;Burhanpur|21.31|76.23;Chhatarpur|24.92|79.59;Chhindwara|22.06|78.94;Damoh|23.83|79.44;Datia|25.67|78.46;Dewas|22.97|76.06;Dhar|22.59|75.3;Dindori|22.94|81.08;Guna|24.65|77.31;Gwalior|26.23|78.17;Harda|22.34|77.1;Indore|22.72|75.83;Jabalpur|23.17|79.95;Jhabua|22.77|74.59;Katni|23.84|80.39;Khandwa|21.75|76.58;Khargone|21.82|75.61;Mandla|22.6|80.37;Mandsaur|24.07|75.07;Morena|26.5|78.0;Narmadapuram|22.75|77.73;Narsimhapur|22.95|79.18;Neemuch|24.47|74.87;Niwari|25.28|78.75;Panna|24.72|80.19;Raisen|23.25|78.08;Rajgarh|23.83|76.75;Ratlam|23.33|75.04;Rewa|24.53|81.29;Sagar|23.75|78.75;Satna|24.58|80.83;Sehore|23.2|77.08;Seoni|22.09|79.55;Shahdol|23.29|81.36;Shajapur|23.43|76.28;Sheopur|25.66|76.7;Shivpuri|25.42|77.66;Sidhi|24.4|81.88;Singrauli|24.2|82.68;Tikamgarh|24.74|78.83;Ujjain|23.18|75.78;Umaria|23.52|80.84;Vidisha|23.53|77.81","Uttar Pradesh":"Agra|27.18|78.02;Aligarh|27.88|78.07;Ambedkar Nagar|26.41|82.7;Amethi|26.21|81.69;Amroha|28.9|78.47;Auraiya|26.47|79.51;Ayodhya|26.75|82.0;Azamgarh|26.07|83.18;Baghpat|28.95|77.22;Bahraich|27.8|81.52;Ballia|25.83|84.17;Balrampur|27.43|82.19;Banda|25.48|80.33;Bara Banki|26.94|81.33;Bareilly|28.37|79.43;Basti|26.79|82.72;Bhadohi|25.36|82.43;Bijnor|29.37|78.14;Budaun|28.04|79.13;Bulandshahr|28.4|77.86;Chandauli|25.26|83.26;Chitrakoot|25.21|81.09;Deoria|26.5|83.78;Etah|27.56|78.66;Etawah|26.78|79.02;Fatehpur|25.93|80.81;Ferrukhabad|27.43|79.46;Firozabad|27.15|78.4;Gautam Buddha Nagar|28.36|77.55;Ghaziabad|28.67|77.44;Ghazipur|25.58|83.59;Gonda|27.19|81.97;Gorakhpur|26.77|83.37;Hamirpur|25.75|79.87;Hapur|28.73|77.78;Hardoi|27.39|80.13;Hathras|27.6|78.05;Jalaun|26.09|79.39;Jaunpur|25.75|82.69;Jhansi|25.46|78.58;Kannauj|27.06|79.92;Kanpur|26.47|80.35;Kanpur Dehat|26.42|79.99;Kasganj|27.81|78.65;Kaushambi|25.53|81.38;Kheri|28.12|80.67;Kushinagar|26.74|83.89;Lalitpur|24.69|78.42;Lucknow|26.84|80.92;Maharajganj|27.17|83.51;Mahoba|25.29|79.88;Mainpuri|27.23|79.03;Mathura|27.5|77.67;Mau|25.94|83.56;Meerut|28.98|77.71;Mirzapur|25.14|82.57;Moradabad|28.84|78.78;Muzaffarnagar|29.47|77.7;Pilibhit|28.63|79.8;Pratapgarh|25.87|81.83;Prayagraj|25.44|81.84;Raebareli|26.23|81.23;Rampur|28.81|79.03;Saharanpur|29.97|77.55;Sambhal|28.58|78.57;Sant Kabir Nagar|26.79|83.03;Shajahanpur|27.95|79.82;Shamli|29.45|77.31;Shrawasti|27.51|82.0;Siddharthnagar|27.26|83.01;Sitapur|27.56|80.68;Sonbhadra|24.4|83.05;Sultanpur|26.26|82.07;Unnao|26.55|80.49;Varanasi|25.32|83.01","Gujarat":"Ahmadabad|23.03|72.58;Amreli|21.6|71.21;Anand|22.55|72.96;Arvalli|23.46|73.39;Banas Kantha|24.25|72.5;Bharuch|21.69|72.98;Bhavnagar|21.76|72.15;Botad|22.17|71.67;Chhotaudepur|22.31|74.02;Devbhumi Dwarka|22.2|69.65;Dohad|22.83|74.26;Gandhinagar|23.22|72.68;Gir Somnath|20.91|70.37;Jamnagar|22.47|70.07;Junagadh|21.52|70.46;Kheda|22.75|72.83;Kutch|23.58|70.0;Mahesana|23.6|72.38;Mahisagar|23.13|73.61;Morbi|22.81|70.82;Narmada|21.87|73.5;Navsari|20.95|72.92;Panch Mahals|22.75|73.6;Patan|23.85|72.13;Porbandar|21.64|69.61;Rajkot|22.29|70.79;Sabarkantha|23.63|73.0;Surat|21.2|72.83;Surendranagar|22.73|71.65;Tapi|21.12|73.4;The Dangs|20.75|73.75;Vadodara|22.3|73.21;Valsad|20.5|73.08","Bihar":"Araria|26.15|87.51;Arwal|25.24|84.67;Aurangabad|24.75|84.37;Banka|24.88|86.92;Begusarai|25.42|86.13;Bhagalpur|25.24|86.97;Bhojpur|25.31|84.45;Buxar|25.58|83.98;Darbhanga|26.15|85.9;Gaya|24.8|85.0;Gopalganj|26.47|84.44;Jamui|24.93|86.23;Jehanabad|25.21|85.0;Kaimur|25.05|83.58;Katihar|25.54|87.57;Khagaria|25.5|86.47;Kishanganj|26.1|87.96;Lakhisarai|25.2|86.2;Madhepura|25.92|86.79;Madhubani|26.35|86.07;Munger|25.37|86.47;Muzaffarpur|26.12|85.39;Nalanda|25.25|85.58;Nawada|24.89|85.54;Pashchim Champaran|27.0|84.5;Patna|25.59|85.14;Purba Champaran|26.58|84.83;Purnia|25.78|87.47;Rohtas|24.98|84.03;Saharsa|25.87|86.6;Samastipur|25.86|85.78;Saran|25.92|84.75;Sheikhpura|25.14|85.84;Sheohar|26.51|85.29;Sitamarhi|26.59|85.49;Siwan|26.22|84.36;Supaul|26.12|86.6;Vaishali|25.75|85.42","Uttarakhand":"Almora|29.6|79.66;Bageshwar|29.84|79.77;Chamoli|30.49|79.58;Champawat|29.29|80.04;Dehradun|30.32|78.03;Garhwal|29.96|78.93;Haridwar|29.95|78.16;Nainital|29.32|79.46;Pithoragarh|29.58|80.21;Rudraprayag|30.28|78.98;Tehri Garhwal|30.35|78.49;Udham Singh Nagar|29.03|79.52;Uttarkashi|30.73|78.44","Karnataka":"Bagalkot|16.19|75.7;Ballari|15.14|76.92;Belagavi (Belgaum)|16.33|74.75;Bengaluru Rural (Bangalore Rural)|13.23|77.58;Bengaluru Urban (Bangalore Urban)|13.0|77.58;Bidar|17.91|77.52;Chamrajnagar|11.92|76.94;Chikkaballapur|13.55|77.87;Chikkamagaluru (Chikmagalur)|13.32|75.77;Chitradurga|14.22|76.4;Dakshina Kannada|12.84|75.29;Davanagere|14.43|75.9;Dharwad|15.37|75.14;Gadag|15.5|75.65;Hassan|13.01|76.1;Haveri|14.74|75.41;Kalaburagi (Gulbarga)|17.17|77.08;Kodagu|12.42|75.75;Kolar|13.13|78.23;Koppal|15.5|76.2;Mandya|12.52|76.9;Mysuru (Mysore)|12.23|76.42;Raichur|16.21|77.36;Ramanagara|12.65|77.35;Shivamogga (Shimoga)|14.05|75.16;Tumakuru (Tumkur)|13.34|77.1;Udupi|13.33|74.75;Uttar Kannada|14.88|74.58;Vijayanagar|14.94|76.04;Vijayapura (Bijapur)|16.67|75.92;Yadgir|16.77|77.14","Jammu and Kashmir":"Anantnag|33.73|75.15;Badgam|33.89|74.66;Bandipore|34.5|74.83;Baramula|34.21|74.34;Doda|33.15|75.55;Ganderbal|34.23|74.77;Jammu|32.74|74.86;Kathua|32.37|75.53;Kishtwar|33.31|75.77;Kulgam|33.64|75.02;Kupwara|34.53|74.27;Pulwama|33.93|75.04;Punch|33.77|74.09;Rajauri|33.25|74.25;Ramban|33.24|75.24;Reasi|33.21|74.82;Samba|32.56|75.12;Shupiyan|33.73|74.82;Srinagar|34.09|74.81;Udhampur|32.92|75.14","Rajasthan":"Ajmer|26.45|74.64;Alwar|27.56|76.62;Banswara|23.54|74.44;Baran|25.1|76.52;Barmer|25.75|71.39;Bharatpur|27.22|77.49;Bhilwara|25.35|74.64;Bikaner|28.02|73.31;Bundi|25.44|75.64;Chittaurgarh|24.82|74.59;Churu|28.34|74.7;Dausa|26.89|76.34;Dhaulpur|26.69|77.88;Dungarpur|23.84|73.71;Ganganagar|29.49|73.61;Hanumangarh|29.58|74.33;Jaipur|26.92|75.79;Jaisalmer|26.92|70.9;Jalore|25.08|72.29;Jhalawar|24.6|76.16;Jhunjhunu|28.09|75.55;Jodhpur|26.27|73.01;Karauli|26.58|77.1;Kota|25.18|75.84;Nagaur|27.2|73.73;Pali|25.77|73.32;Pratapgarh|24.03|74.78;Rajsamand|25.07|73.88;Sawai Madhopur|26.02|76.34;Sikar|27.61|75.14;Sirohi|24.76|72.78;Tonk|26.17|75.79;Udaipur|24.59|73.71","Tamil Nadu":"Ariyalur|11.15|79.25;Chengalpattu|12.68|79.98;Chennai|13.09|80.28;Coimbatore|11.01|76.97;Cuddalore|11.52|79.51;Dharmapuri|12.13|78.16;Dindigul|10.37|77.98;Erode|11.34|77.73;Kallakurichi|11.73|78.96;Kancheepuram|12.83|79.78;Kanniyakumari|8.32|77.34;Karur|10.96|78.08;Krishnagiri|12.58|77.96;Madurai|9.92|78.12;Mayiladuthurai|11.1|79.66;Nagapattinam|10.76|79.84;Namakkal|11.3|78.13;Nilgiris|11.46|76.64;Perambalur|11.23|78.88;Pudukkottai|10.38|78.82;Ramanathapuram|9.37|78.7;Ranipet|12.92|79.33;Salem|11.65|78.16;Sivaganga|9.93|78.54;Tenkasi|8.95|77.32;Thanjavur|10.79|79.14;Theni|9.85|77.42;Thiruvallur|13.25|80.0;Thiruvarur|10.66|79.55;Thoothukkudi|8.84|77.96;Tiruchirappalli|10.82|78.7;Tirunelveli Kattabo|8.79|77.57;Tirupattur|12.49|78.56;Tiruppur|11.12|77.35;Tiruvannamalai|12.23|79.07;Vellore|12.92|79.13;Villupuram|11.94|79.49;Virudhunagar|9.45|77.92","Chhattisgarh":"Balod|20.73|81.2;Baloda Bazar|21.66|82.16;Balrampur|23.61|83.61;Bastar|19.27|81.74;Bemetara|21.72|81.53;Bijapur|18.79|80.82;Bilaspur|22.08|82.16;Dakshin Bastar Dantewada|18.5|81.38;Dhamtari|20.71|81.55;Durg|21.15|81.4;Gariyaband|20.63|82.06;Gaurella Pendra Marwahi|22.83|81.96;Janjgir-Champa|21.9|82.7;Jashpur|22.78|83.85;Kabeerdham|22.1|81.2;Khairgarh Chhuikhadan Gandai|21.53|80.95;Kondagaon|19.59|81.66;Korba|22.35|82.7;Koriya|23.43|82.52;Mahasamund|21.11|82.09;Manendragarh Chirimiri Bharatpur|23.43|82.18;Mohla Manpur Ambagarh Chouki|20.49|80.8;Mungeli|22.07|81.69;Narayanpur|19.6|81.08;Raigarh|21.9|83.4;Raipur|21.23|81.63;Raj Nandgaon|21.17|81.0;Sakti|22.03|82.96;Sarangarh Bilaigarh|21.54|83.13;Sukma|18.33|81.63;Surajpur|23.21|82.87;Surguja|22.9|83.1;Uttar Bastar Kanker|20.2|81.1","Odisha":"Angul|20.84|85.1;Balangir|20.7|83.49;Baleshwar|21.5|86.75;Baragarh|21.33|83.62;Baudh|20.83|84.33;Bhadrak|21.05|86.52;Cuttack|20.46|85.88;Debagarh|21.47|84.8;Dhenkanal|20.66|85.6;Gajapati|18.91|84.2;Ganjam|19.5|84.5;Jagatsinghpur|20.2|86.3;Jajpur|20.84|86.31;Jharsuguda|21.86|84.01;Kalahandi|19.75|83.0;Kandhamal|20.3|84.0;Kendrapara|20.5|86.5;Kendujhar|21.5|85.5;Khordha|20.2|85.6;Koraput|19.0|83.0;Malkangiri|18.25|81.95;Mayurbhanj|21.75|86.5;Nabarangpur|19.23|82.55;Nayagarh|20.13|85.1;Nuapada|20.6|82.5;Puri|19.8|85.82;Rayagada|19.17|83.41;Sambalpur|21.47|83.98;Subarnapur|20.93|83.82;Sundargarh|22.25|84.5","Haryana":"Ambala|30.36|76.8;Bhiwani|28.79|76.14;Charki Dadri|28.59|76.27;Faridabad|28.41|77.31;Fatehabad|29.52|75.46;Gurugram|28.46|77.03;Hisar|29.15|75.72;Jhajjar|28.6|76.65;Jind|29.32|76.32;Kaithal|29.8|76.4;Karnal|29.69|76.98;Kurukshetra|30.0|76.75;Mahendragarh|28.25|76.17;Nuh|27.98|77.05;Palwal|28.14|77.33;Panchkula|30.69|76.85;Panipat|29.39|76.97;Rewari|28.2|76.62;Rohtak|28.89|76.59;Sirsa|29.53|75.03;Sonipat|28.99|77.02;Yamunanagar|30.24|77.3","Himachal Pradesh":"Bilaspur|31.33|76.76;Chamba|32.56|76.13;Hamirpur|31.68|76.53;Kangra|32.17|76.25;Kinnaur|31.58|78.42;Kulu|31.96|77.11;Lahul and Spiti|32.5|77.83;Mandi|31.71|76.93;Shimla|31.1|77.17;Sirmaur|30.75|77.5;Solan|30.91|77.11;Una|31.46|76.27","Jharkhand":"Bokaro|23.67|86.15;Chatra|24.21|84.87;Deogarh|24.44|86.73;Dhanbad|23.8|86.43;Dumka|24.27|87.25;Garhwa|24.16|83.81;Giridih|24.19|86.31;Godda|24.83|87.21;Gumla|23.04|84.54;Hazaribag|24.0|85.25;Jamtara|23.96|86.8;Khunti|23.08|85.28;Kodarma|24.44|85.6;Latehar|23.74|84.5;Lohardaga|23.43|84.68;Pakur|24.64|87.84;Palamu|23.92|84.08;Pashchim Singhbhum|22.5|85.5;Purba Singhbhum|22.59|86.48;Ramgarh|23.63|85.52;Ranchi|23.34|85.31;Sahibganj|25.24|87.63;Saraikela|22.84|85.9;Simdega|22.62|84.5","Assam":"Bajali|26.53|91.17;Baksa|26.7|91.15;Barpeta|26.32|91.01;Biswanath|26.72|93.15;Bongaigaon|26.48|90.56;Cachar|24.78|92.86;Charaideo|27.06|95.03;Chirang|26.53|90.49;Darrang|26.51|92.17;Dhemaji|27.61|94.79;Dhubri|26.02|89.99;Dibrugarh|27.48|94.91;Dima Hasao|25.5|93.0;Goalpara|26.18|90.63;Golaghat|26.51|93.96;Hailakandi|24.68|92.56;Hojai|26.0|92.86;Jorhat|26.76|94.2;Kamrup|26.22|91.65;Kamrup Metropolitan|26.05|92.01;Karbi Anglong|26.0|93.5;Karimganj|24.87|92.36;Kokrajhar|26.4|90.27;Lakhimpur|27.35|94.25;Majuli|27.0|94.26;Morigaon|26.25|92.35;Nagaon|26.35|92.67;Nalbari|26.44|91.44;Sibsagar|26.98|94.64;Sonitpur|26.77|92.96;South Salmara Mancachar|25.71|89.89;Tamulpur|26.67|91.58;Tinsukia|27.49|95.36;Udalguri|26.73|92.09;West Karbi Anglong|25.89|92.84","Punjab":"Ajitgarh|30.65|76.7;Amritsar|31.62|74.88;Barnala|30.37|75.55;Bathinda|30.21|74.94;Faridkot|30.65|74.75;Fatehgarh Sahib|30.64|76.35;Fazilka|30.38|74.12;Firozpur|30.93|74.61;Gurdaspur|31.92|75.27;Hoshiarpur|31.54|75.91;Jalandhar|31.33|75.58;Kapurthala|31.4|75.31;Ludhiana|30.91|75.85;Malerkotla|30.53|75.91;Mansa|29.99|75.4;Moga|30.81|75.17;Muktsar|30.47|74.52;Pathankot|32.27|75.65;Patiala|30.34|76.39;Rupnagar|31.04|76.52;Sangrur|30.25|75.84;Shahid Bhagat Singh Nagar|31.13|76.13;Tarn Taran|31.45|74.93","West Bengal":"Alipurduar|26.49|89.53;Bankura|23.23|87.07;Birbhum|23.95|87.66;Cooch Behar|26.29|89.35;Dakshin Dinajpur|25.22|88.76;Darjeeling|26.85|88.26;Haora|22.6|88.25;Hugli|22.83|88.2;Jalpaiguri|26.52|88.73;Jhargram|22.45|86.99;Kalimpong|27.03|88.63;Kolkata|22.56|88.36;Malda|25.0|88.15;Murshidabad|24.1|88.25;Nadia|23.48|88.52;North 24 Parganas|22.71|88.71;Paschim Bardhaman|23.68|86.98;Paschim Medinipur|22.41|87.38;Purba Bardhaman|23.36|87.95;Purba Medinipur|21.94|87.78;Puruliya|23.33|86.36;South 24 Parganas|22.16|88.43;Uttar Dinajpur|25.61|88.13","Andaman and Nicobar":"Nicobar|7.03|93.79;North  & Middle Andaman|12.84|92.87;South Andaman|10.76|92.52","Kerala":"Alappuzha|9.49|76.33;Ernakulam|10.0|76.5;Idukki|10.0|77.0;Kannur|12.17|75.33;Kasaragod|12.49|74.99;Kollam|8.88|76.58;Kottayam|9.59|76.52;Kozhikode|11.25|75.78;Malappuram|11.0|76.17;Palakkad|10.77|76.65;Pattanamtitta|9.28|76.87;Thiruvananthapuram|8.49|76.95;Thrissur|10.52|76.22;Wayanad|11.61|76.08","Ladakh":"Kargil|33.97|76.48;Leh|34.17|77.58","Meghalaya":"East Garo Hills|25.61|90.62;East Jaintia Hills|25.36|92.37;East Khasi Hills|25.38|91.79;Eastern West Khasi Hills|25.61|91.57;North Garo Hills|25.9|90.62;Ri-Bhoi|25.89|91.83;South Garo Hills|25.3|90.59;South West Garo Hills|25.47|89.93;South West Khasi Hills|25.32|91.29;West Garo Hills|25.57|90.22;West Jaintia Hills|25.5|92.25;West Khasi Hills|25.55|91.27","Dadra and Nagar Haveli and Daman and Diu":"Dadra & Nagar Haveli|20.21|73.01;Daman|20.42|72.88;Diu|20.71|70.98","Mizoram":"Aizawl|23.73|92.72;Champhai|23.47|93.33;Hnahthial|22.97|92.93;Khawzawl|23.52|93.19;Kolasib|24.22|92.68;Lawngtlai|22.53|92.9;Lunglei|22.89|92.74;Mamit|23.78|92.47;Saiha|22.49|92.98;Saitual|23.68|92.97;Serchhip|23.29|92.85","Delhi":"Central Delhi|28.65|77.22;East Delhi|28.62|77.29;New Delhi|28.62|77.21;North Delhi|28.78|77.11;North East Delhi|28.72|77.27;North West Delhi|28.7|77.1;Shahdara|28.68|77.29;South Delhi|28.49|77.2;South East|28.55|77.27;South West Delhi|28.58|77.07;West Delhi|28.66|77.1","Manipur":"Bishnupur|24.61|93.78;Chandel|24.24|94.09;Churachandpur|24.33|93.67;Imphal East|24.82|93.94;Imphal West|24.79|93.87;Jiribam|24.8|93.12;Kakching|24.5|93.98;Kamjong|24.85|94.51;Kangpokpi|25.15|93.97;Noney|24.66|93.39;Pherzawl|24.26|93.19;Senapati|25.27|94.02;Tamenglong|25.02|93.49;Tengnoupal|24.41|94.21;Thoubal|24.64|94.0;Ukhrul|25.12|94.36","Goa":"North Goa|15.63|73.89;South Goa|15.2|74.17","Chandigarh":"Chandigarh|30.74|76.79","Lakshadweep":"Lakshadweep|10.57|72.65"};
+</script>
 <script>(function(){
 'use strict';
 /* =========================================================
@@ -381,9 +400,12 @@ hi: {
   quizSub: 'Har sawaal ka ek jawab. Jo yaad nahi, uska bhi option hai — chhodiye mat, andaaza bhi chalega.',
 
   setupEyebrow: 'Pehle do cheezein',
-  setupH: 'Janam ki tareekh aur sheher',
-  setupHelp: 'Time nahi chahiye — wahi to hum nikaal rahe hain. In dono se hum us din ka aasman calculate karte hain.',
-  fDay: 'Din', fMonth: 'Mahina', fYear: 'Saal', fCity: 'Janam ka sheher',
+  setupH: 'Janam ki tareekh aur jagah',
+  setupHelp: 'Time nahi chahiye — wahi to hum nikaal rahe hain. Tareekh aur jagah se hum us din ka aasman calculate karte hain.',
+  fDay: 'Din', fMonth: 'Mahina', fYear: 'Saal',
+  fState: 'Janam ka rajya', fCity: 'Janam ka zila',
+  cityPick: 'Pehle rajya chuniye', choose: 'Chuniye',
+  errState: 'Rajya chuniye.', errCity: 'Zila chuniye.',
   setupBtn: 'Shuru karein',
   errDays: function(m,y,n){ return m+' '+y+' mein sirf '+n+' din hain.'; },
 
@@ -395,32 +417,9 @@ hi: {
   months: ['January','February','March','April','May','June','July','August','September','October','November','December'],
 
   questions: [
-    { key:'window',
-      q:'Ghar mein kisi ne kabhi kuch bataya hai?',
-      help:'Maa, nani, koi bhi. "Subah thi" jitna bhi yaad ho, kaafi hai.',
-      opts:[
-        {v:'early_morning', l:'Bilkul subah, ujaala hone ke aas-paas'},
-        {v:'morning',       l:'Din mein, lunch se pehle'},
-        {v:'afternoon',     l:'Dopahar, lunch ke baad'},
-        {v:'evening',       l:'Shaam ko, sooraj dhalte waqt'},
-        {v:'night',         l:'Raat ko, dinner ke baad'},
-        {v:'late_night',    l:'Gehri raat, sab so rahe the'},
-        {v:'unknown',       l:'Sach mein kuch nahi pata', s:'Koi baat nahi, baaki sawaal se nikaal lenge'}]},
-
-    { key:'build',
-      q:'Aapki body ka natural build kaisa hai?',
-      help:'Gym ka nahi — jaisa naturally hai. Lagna sharir se juda hota hai, isliye ye poochh rahe hain.',
-      opts:[
-        {v:'lean_sharp',    l:'Patla aur athletic, sharp features'},
-        {v:'sturdy_solid',  l:'Bhaari aur solid, mazboot gardan aur kandhe'},
-        {v:'tall_slim',     l:'Lamba aur patla, lambe haath'},
-        {v:'soft_round',    l:'Soft build, gol chehra, weight aasani se aata hai'},
-        {v:'balanced_prop', l:'Bilkul balanced, na mota na patla'},
-        {v:'broad_strong',  l:'Chaudi frame, bada presence'}]},
-
     { key:'vibe',
-      q:'Naye log aapse milte hi kya sochte hain?',
-      help:'Pehla impression — jab aapko koi jaanta nahi.',
+      q:'Naye log aapse pehli baar milte hain, to kya sochte hain?',
+      help:'Sabse aasan sawaal se shuru. Jo dil mein aaye wahi chuniye, koi galat jawab nahi hai.',
       opts:[
         {v:'direct_blunt',   l:'"Ye to bahut seedha bolta hai"'},
         {v:'calm_steady',    l:'"Kitna shaant insaan hai"'},
@@ -429,9 +428,20 @@ hi: {
         {v:'dreamy_warm',    l:'"Bada sweet hai, thoda kho jaata hai"'},
         {v:'serious_formal', l:'"Umar se zyada mature lagta hai"'}]},
 
+    { key:'build',
+      q:'Aur aapka natural build kaisa hai?',
+      help:'Gym waala nahi. Jaise aap hamesha se hain.',
+      opts:[
+        {v:'lean_sharp',    l:'Patla aur athletic, sharp features'},
+        {v:'sturdy_solid',  l:'Bhaari aur solid, mazboot gardan aur kandhe'},
+        {v:'tall_slim',     l:'Lamba aur patla, lambe haath'},
+        {v:'soft_round',    l:'Soft build, gol chehra, weight aasani se aata hai'},
+        {v:'balanced_prop', l:'Bilkul balanced, na mota na patla'},
+        {v:'broad_strong',  l:'Chaudi frame, bada presence'}]},
+
     { key:'mark',
-      q:'Sabse purana til, birthmark ya nishaan kahan hai?',
-      help:'Jo janam se hai, baad wala nahi. Classical texts mein sharir ka har hissa ek raashi se juda hai.',
+      q:'Aapka til ya birthmark kahan hai?',
+      help:'Jo til ya birthmark bachpan se hai \u2014 baad ka nishaan nahi. Agar koi nahi hai, uska bhi option hai.',
       opts:[
         {v:'head',    l:'Sar ya maatha'},
         {v:'face',    l:'Chehra, gardan ya gala'},
@@ -446,8 +456,8 @@ hi: {
         {v:'none',    l:'Koi nahi hai, ya pata nahi'}]},
 
     { key:'delivery',
-      q:'Delivery kaise hui thi?',
-      help:'Ghar walon ko ye hamesha yaad rehta hai, chahe time yaad na ho.',
+      q:'Aapke janam ki delivery kaise hui thi?',
+      help:'Ghar mein jo bataya jaata hai. Ye baat hamesha yaad rehti hai, chahe ghadi ka waqt yaad na ho.',
       opts:[
         {v:'normal_quick',     l:'Normal, jaldi ho gayi thi'},
         {v:'normal_long',      l:'Normal, lekin labour lambi chali'},
@@ -456,12 +466,21 @@ hi: {
         {v:'premature',        l:'Time se pehle paida hue'},
         {v:'unknown',          l:'Pata nahi'}]},
 
-    /* Rewritten: was abstract ("turning point", "kis cheez mein aaya") and
-       leaked jargon ("dasha se cross-check"). Now a plain question with
-       concrete, everyday options. */
+    { key:'window',
+      q:'Kisi ne kabhi bataya ki aapka janam lagbhag kis waqt hua tha?',
+      help:'"Subah thi" jitna bhi kaafi hai. Aur kisi ne kabhi nahi bataya, to bhi chinta nahi \u2014 ab tak ke jawab kaam kar rahe hain.',
+      opts:[
+        {v:'early_morning', l:'Bilkul subah, ujaala hone ke aas-paas'},
+        {v:'morning',       l:'Din mein, lunch se pehle'},
+        {v:'afternoon',     l:'Dopahar, lunch ke baad'},
+        {v:'evening',       l:'Shaam ko, sooraj dhalte waqt'},
+        {v:'night',         l:'Raat ko, dinner ke baad'},
+        {v:'late_night',    l:'Gehri raat, sab so rahe the'},
+        {v:'unknown',       l:'Sach mein kuch nahi pata', s:'Koi baat nahi, baaki sawaal se nikaal lenge'}]},
+
     { key:'event',
       q:'Ab tak ka sabse bada badlaav kis wajah se aaya?',
-      help:'Koi ek cheez jisne aapki zindagi sach mein badal di. Sirf ek chuniye — jo sabse bada tha.',
+      help:'Koi ek cheez jisne aapki zindagi sach mein badal di. Sirf ek chuniye \u2014 jo sabse bada tha.',
       opts:[
         {v:'career',    l:'Naukri ya kaam',        s:'Pehli job, business, promotion, ya naukri chali gayi'},
         {v:'education', l:'Padhai',                s:'Koi bada exam, admission, ya degree poori hui'},
@@ -473,27 +492,44 @@ hi: {
         {v:'none',      l:'Abhi tak aisa kuch nahi hua'}]},
 
     { key:'syllable',
-      q:'Aapka naam kis akshar se shuru hota hai?',
-      help:'Agar pandit ji ne nakshatra dekh kar naam rakha tha, to ye Chandrma ki position bata deta hai.',
+      q:'Aakhri sawaal \u2014 aapka naam kis akshar se shuru hota hai?',
+      help:'Jis awaaz se naam shuru hota hai wo chuniye. Kai gharon mein pandit ji ye akshar janma nakshatra dekh kar chunte hain.',
       opts:[
-        {v:'chu', l:'Chu, Che, Cho, La'},
-        {v:'ka',  l:'Ka, Ki, Ku, Ke, Ko'},
-        {v:'ma',  l:'Ma, Mi, Mu, Me, Mo'},
-        {v:'ta',  l:'Ta, Ti, Tu, Te, To'},
-        {v:'na',  l:'Na, Ni, Nu, Ne, No'},
-        {v:'pa',  l:'Pa, Pi, Pu, Pe, Po'},
-        {v:'ra',  l:'Ra, Ri, Ru, Re, Ro'},
-        {v:'sa',  l:'Sa, Si, Su, Se, So'},
-        {v:'da',  l:'Da, Di, Du, De, Do'},
-        {v:'ja',  l:'Ja, Ji, Ju, Je, Jo'},
-        {v:'unknown', l:'Naam aise hi rakha tha, nakshatra dekh kar nahi'}]}
+        {v:'vowel', l:'A, I, U, E, O'},
+        {v:'k', l:'Ka, Ki, Ku, Ke, Ko'},
+        {v:'g', l:'Ga, Gi, Gu, Ge, Go, Gha'},
+        {v:'ch', l:'Cha, Chi, Chu, Che, Cho, Chha'},
+        {v:'j', l:'Ja, Ji, Ju, Je, Jo, Jha'},
+        {v:'t', l:'Ta, Ti, Tu, Te, To, Tha'},
+        {v:'d', l:'Da, Di, Du, De, Do, Dha'},
+        {v:'n', l:'Na, Ni, Nu, Ne, No'},
+        {v:'p', l:'Pa, Pi, Pu, Pe, Po, Pha'},
+        {v:'b', l:'Ba, Bi, Bu, Be, Bo'},
+        {v:'m', l:'Ma, Mi, Mu, Me, Mo'},
+        {v:'y', l:'Ya, Yi, Yu, Ye, Yo'},
+        {v:'r', l:'Ra, Ri, Ru, Re, Ro'},
+        {v:'l', l:'La, Li, Lu, Le, Lo'},
+        {v:'v', l:'Va, Vi, Vu, Ve, Vo'},
+        {v:'s', l:'Sa, Si, Su, Se, So, Sha'},
+        {v:'h', l:'Ha, Hi, Hu, He, Ho'},
+        {v:'unknown', l:'Pata nahi, ya naam nakshatra dekh kar nahi rakha'}
+      ]}
   ],
 
   /* Follow-up to question six */
-  ageQ:     'Jab wo bada badlaav hua, tab aapki umar kya thi?',
+  nudges: [
+    'Saat chhote sawaal. Kuch dhoondhna nahi padega.',
+    'Pehle jawab se hi kuch pata chalne laga hai.',
+    'Ye sawaal kaam ka hai \u2014 purane granth sharir ko aasman se jodte hain.',
+    'Aadha ho gaya.',
+    'Bas do baaki.',
+    'Iske baad sirf ek aur.',
+    'Bas ho gaya. Ab aapka time nikaalte hain.'
+  ],
+  ageQ:     'Wo bada badlaav jab hua, tab aapki umar kya thi?',
   agePicked: function(w){ return 'Aapne chuna: '+w+'.'; },
-  ageHelp:  'Theek-theek yaad nahi to andaaza chalega. Isse hum dekhte hain ki us umar mein kaunsa graha-kaal chal raha tha.',
-  ageEyebrow: 'Sawaal 6 of 7 — ek aur cheez',
+  ageHelp:  'Theek-theek yaad nahi to andaaza bilkul chalega.',
+  ageEyebrow: function(n){ return 'Sawaal '+n+' of 7 \u2014 doosra hissa'; },
   ageOpts: [
     ['Bachpan mein, 12 saal se pehle', 8],
     ['Teenage mein, 13 se 19', 16],
@@ -596,9 +632,12 @@ en: {
   quizSub: 'One answer per question. Every question has an option for things you do not know, so nothing needs skipping — a guess is fine.',
 
   setupEyebrow: 'Two things first',
-  setupH: 'Date and city of birth',
-  setupHelp: 'We do not need the time — that is what we are working out. These two let us calculate the sky over that day.',
-  fDay: 'Day', fMonth: 'Month', fYear: 'Year', fCity: 'City of birth',
+  setupH: 'Date and place of birth',
+  setupHelp: 'We do not need the time — that is what we are working out. The date and place let us calculate the sky over that day.',
+  fDay: 'Day', fMonth: 'Month', fYear: 'Year',
+  fState: 'State of birth', fCity: 'District of birth',
+  cityPick: 'Pick a state first', choose: 'Select',
+  errState: 'Please pick a state.', errCity: 'Please pick a district.',
   setupBtn: 'Begin',
   errDays: function(m,y,n){ return m+' '+y+' only has '+n+' days.'; },
 
@@ -610,32 +649,9 @@ en: {
   months: ['January','February','March','April','May','June','July','August','September','October','November','December'],
 
   questions: [
-    { key:'window',
-      q:'Has anyone in the family ever mentioned a time?',
-      help:'Your mother, grandmother, anyone. Even "it was morning" is enough to work with.',
-      opts:[
-        {v:'early_morning', l:'Very early, around first light'},
-        {v:'morning',       l:'During the day, before lunch'},
-        {v:'afternoon',     l:'Afternoon, after lunch'},
-        {v:'evening',       l:'Evening, around sunset'},
-        {v:'night',         l:'At night, after dinner'},
-        {v:'late_night',    l:'Late at night, everyone asleep'},
-        {v:'unknown',       l:'Genuinely no idea', s:'That is fine — the other questions will carry it'}]},
-
-    { key:'build',
-      q:'What is your natural build?',
-      help:'Not your gym shape — how you are naturally built. The ascendant governs the body, which is why we ask.',
-      opts:[
-        {v:'lean_sharp',    l:'Lean and athletic, sharp features'},
-        {v:'sturdy_solid',  l:'Solid and sturdy, strong neck and shoulders'},
-        {v:'tall_slim',     l:'Tall and slim, long arms'},
-        {v:'soft_round',    l:'Softer build, rounder face, gains weight easily'},
-        {v:'balanced_prop', l:'Well proportioned, neither heavy nor thin'},
-        {v:'broad_strong',  l:'Broad frame, noticeable presence'}]},
-
     { key:'vibe',
-      q:'What do new people think when they first meet you?',
-      help:'Your first impression, before anyone knows you.',
+      q:'How do people read you when they first meet you?',
+      help:'Easiest one first. Go with your gut \u2014 there is no wrong answer.',
       opts:[
         {v:'direct_blunt',   l:'"This one says exactly what they think"'},
         {v:'calm_steady',    l:'"Very calm person"'},
@@ -644,9 +660,20 @@ en: {
         {v:'dreamy_warm',    l:'"Sweet, drifts off a bit"'},
         {v:'serious_formal', l:'"Seems older than they are"'}]},
 
+    { key:'build',
+      q:'And how are you built, naturally?',
+      help:'Not your gym shape. However you have always been.',
+      opts:[
+        {v:'lean_sharp',    l:'Lean and athletic, sharp features'},
+        {v:'sturdy_solid',  l:'Solid and sturdy, strong neck and shoulders'},
+        {v:'tall_slim',     l:'Tall and slim, long arms'},
+        {v:'soft_round',    l:'Softer build, rounder face, gains weight easily'},
+        {v:'balanced_prop', l:'Well proportioned, neither heavy nor thin'},
+        {v:'broad_strong',  l:'Broad frame, noticeable presence'}]},
+
     { key:'mark',
-      q:'Where is your oldest mole, birthmark or scar?',
-      help:'One you were born with, not a later one. Classical texts map each part of the body to a sign.',
+      q:'Where is your birthmark or mole?',
+      help:'A birthmark or mole you have had since childhood \u2014 not a recent scar. If you do not have one, there is an option for that.',
       opts:[
         {v:'head',    l:'Head or forehead'},
         {v:'face',    l:'Face, neck or throat'},
@@ -661,8 +688,8 @@ en: {
         {v:'none',    l:'None, or not sure'}]},
 
     { key:'delivery',
-      q:'How was the delivery?',
-      help:'Families tend to remember this even when the clock time is long gone.',
+      q:'How was the delivery of your birth?',
+      help:'What your family was told about it. People remember this even when the clock time is long gone.',
       opts:[
         {v:'normal_quick',     l:'Normal, and quick'},
         {v:'normal_long',      l:'Normal, but a long labour'},
@@ -671,9 +698,21 @@ en: {
         {v:'premature',        l:'Born early'},
         {v:'unknown',          l:'Not sure'}]},
 
+    { key:'window',
+      q:'Has anyone ever mentioned roughly when you were born?',
+      help:'Even "it was morning" helps. And if nobody ever said, your answers so far are already carrying it.',
+      opts:[
+        {v:'early_morning', l:'Very early, around first light'},
+        {v:'morning',       l:'During the day, before lunch'},
+        {v:'afternoon',     l:'Afternoon, after lunch'},
+        {v:'evening',       l:'Evening, around sunset'},
+        {v:'night',         l:'At night, after dinner'},
+        {v:'late_night',    l:'Late at night, everyone asleep'},
+        {v:'unknown',       l:'Genuinely no idea', s:'That is fine — the other questions will carry it'}]},
+
     { key:'event',
       q:'What caused the biggest change in your life so far?',
-      help:'The one thing that genuinely changed things. Pick just one — whichever was biggest.',
+      help:'The one thing that genuinely changed things. Pick just one \u2014 whichever was biggest.',
       opts:[
         {v:'career',    l:'Work',            s:'A first job, a business, a promotion, or losing a job'},
         {v:'education', l:'Studies',         s:'A major exam, an admission, or finishing a degree'},
@@ -685,26 +724,43 @@ en: {
         {v:'none',      l:'Nothing that big yet'}]},
 
     { key:'syllable',
-      q:'What letter does your name start with?',
-      help:'If a priest chose your name from your birth star, this points to where the Moon was.',
+      q:'Last one. What letter does your name begin with?',
+      help:'Pick the sound your name starts with. In many families a priest chooses it from the birth star.',
       opts:[
-        {v:'chu', l:'Chu, Che, Cho, La'},
-        {v:'ka',  l:'Ka, Ki, Ku, Ke, Ko'},
-        {v:'ma',  l:'Ma, Mi, Mu, Me, Mo'},
-        {v:'ta',  l:'Ta, Ti, Tu, Te, To'},
-        {v:'na',  l:'Na, Ni, Nu, Ne, No'},
-        {v:'pa',  l:'Pa, Pi, Pu, Pe, Po'},
-        {v:'ra',  l:'Ra, Ri, Ru, Re, Ro'},
-        {v:'sa',  l:'Sa, Si, Su, Se, So'},
-        {v:'da',  l:'Da, Di, Du, De, Do'},
-        {v:'ja',  l:'Ja, Ji, Ju, Je, Jo'},
-        {v:'unknown', l:'My name was not chosen from a birth star'}]}
+        {v:'vowel', l:'A, I, U, E, O'},
+        {v:'k', l:'Ka, Ki, Ku, Ke, Ko'},
+        {v:'g', l:'Ga, Gi, Gu, Ge, Go, Gha'},
+        {v:'ch', l:'Cha, Chi, Chu, Che, Cho, Chha'},
+        {v:'j', l:'Ja, Ji, Ju, Je, Jo, Jha'},
+        {v:'t', l:'Ta, Ti, Tu, Te, To, Tha'},
+        {v:'d', l:'Da, Di, Du, De, Do, Dha'},
+        {v:'n', l:'Na, Ni, Nu, Ne, No'},
+        {v:'p', l:'Pa, Pi, Pu, Pe, Po, Pha'},
+        {v:'b', l:'Ba, Bi, Bu, Be, Bo'},
+        {v:'m', l:'Ma, Mi, Mu, Me, Mo'},
+        {v:'y', l:'Ya, Yi, Yu, Ye, Yo'},
+        {v:'r', l:'Ra, Ri, Ru, Re, Ro'},
+        {v:'l', l:'La, Li, Lu, Le, Lo'},
+        {v:'v', l:'Va, Vi, Vu, Ve, Vo'},
+        {v:'s', l:'Sa, Si, Su, Se, So, Sha'},
+        {v:'h', l:'Ha, Hi, Hu, He, Ho'},
+        {v:'unknown', l:'Not sure, or my name was not chosen from a birth star'}
+      ]}
   ],
 
+  nudges: [
+    'Seven short questions. Nothing to look up, nothing to prepare.',
+    'That first answer already tells us something.',
+    'This one is oddly useful \u2014 old texts map the body to the sky.',
+    'Halfway.',
+    'Two to go.',
+    'Just one more after this.',
+    'That is everything. Let us work out your time.'
+  ],
   ageQ:     'How old were you when that big change happened?',
   agePicked: function(w){ return 'You chose: '+w+'.'; },
-  ageHelp:  'A rough age is fine. It lets us check which planetary period was running at that age.',
-  ageEyebrow: 'Question 6 of 7 — one more thing',
+  ageHelp:  'A rough age is completely fine \u2014 no need to be exact.',
+  ageEyebrow: function(n){ return 'Question '+n+' of 7 \u2014 part 2'; },
   ageOpts: [
     ['As a child, before 12', 8],
     ['As a teenager, 13 to 19', 16],
@@ -849,6 +905,7 @@ var PADA_SYL=[['chu','che','cho','la'],['li','lu','le','lo'],['a','i','u','e'],[
  ['na','ni','nu','ne'],['no','ya','yi','yu'],['ye','yo','ba','bi'],['bu','dha','pha','dha'],
  ['be','bo','ja','ji'],['ju','je','jo','gha'],['ga','gi','gu','ge'],['go','sa','si','su'],
  ['se','so','da','di'],['du','tha','jha','na'],['de','do','cha','chi']];
+var SYL_GROUP={"vowel":["a","i","u","e","o","ang"],"k":["ka","ki","ku","ke","ko"],"g":["ga","gi","gu","ge","go","gha"],"ch":["cha","chi","chu","che","cho","chha"],"j":["ja","ji","ju","je","jo","jha"],"t":["ta","ti","tu","te","to","tha"],"d":["da","di","du","de","do","dha"],"n":["na","ni","nu","ne","no"],"p":["pa","pi","pu","pe","po","pha"],"b":["ba","bi","bu","be","bo"],"m":["ma","mi","mu","me","mo"],"y":["ya","yi","yu","ye","yo"],"r":["ra","ri","ru","re","ro"],"l":["la","li","lu","le","lo"],"v":["va","vi","vu","ve","vo"],"s":["sa","si","su","se","so","sha"],"h":["ha","hi","hu","he","ho"]};
 var LIMB={head:0,face:1,arms:2,chest:3,stomach:4,waist:5,hips:6,groin:7,thighs:8,knees:9,calves:10,feet:11};
 var BUILD_V={lean_sharp:{0:3,8:2,9:2,5:1},sturdy_solid:{1:3,4:2,7:2,9:1},tall_slim:{2:3,8:2,10:2,5:1},
  soft_round:{3:3,11:2,1:1,6:1},balanced_prop:{6:3,5:2,3:1,2:1},broad_strong:{4:3,7:2,1:2,0:1}};
@@ -936,10 +993,14 @@ function rectify(inp){
     var si=Math.floor(r.lagna/30), sc=LS[si];
     sc+=windowBonus(h);
     var dp=DP[A.delivery]; if(dp&&h>=dp[0]&&h<=dp[1])sc+=1.2;
-    if(A.syllable&&A.syllable!=='unknown'){
+    if(A.syllable&&A.syllable!=='unknown'&&SYL_GROUP[A.syllable]){
       var ml=moonLon(r.jd),nk=Math.floor(ml/(360/27)),pd=Math.floor((ml%(360/27))/(360/108));
-      var sy=PADA_SYL[nk]||[];
-      if(sy[pd]===A.syllable)sc+=2.5; else if(sy.indexOf(A.syllable)>=0)sc+=1;}
+      var sy=PADA_SYL[nk]||[], grp=SYL_GROUP[A.syllable];
+      // The answer is a sound group, so match the pada's syllable against the
+      // whole group rather than one spelling of it.
+      if(grp.indexOf(sy[pd])>=0)sc+=2.5;
+      else { for(var gi=0;gi<sy.length;gi++) if(grp.indexOf(sy[gi])>=0){ sc+=1; break; } }
+    }
     if(A.event&&A.event!=='none'&&A.eventAge!=null){
       var lord=mahadasha(moonLon(r.jd),A.eventAge);
       if((EVENT_LORDS[A.event]||[]).indexOf(lord)>=0)sc+=1.5;}
@@ -1180,18 +1241,21 @@ drawKundali($('miniK'),200,{idp:'M'});
   },700);
 })();
 
-/* cities */
-var CITIES=[
- ['Mumbai',19.076,72.8777],['Delhi',28.6139,77.209],['Bengaluru',12.9716,77.5946],
- ['Hyderabad',17.385,78.4867],['Chennai',13.0827,80.2707],['Kolkata',22.5726,88.3639],
- ['Pune',18.5204,73.8567],['Ahmedabad',23.0225,72.5714],['Jaipur',26.9124,75.7873],
- ['Lucknow',26.8467,80.9462],['Chandigarh',30.7333,76.7794],['Indore',22.7196,75.8577],
- ['Bhopal',23.2599,77.4126],['Patna',25.5941,85.1376],['Nagpur',21.1458,79.0882],
- ['Kochi',9.9312,76.2673],['Guwahati',26.1445,91.7362],['Bhubaneswar',20.2961,85.8245],
- ['Surat',21.1702,72.8311],['Kanpur',26.4499,80.3319],['Varanasi',25.3176,82.9739],
- ['Amritsar',31.634,74.8723],['Coimbatore',11.0168,76.9558],['Visakhapatnam',17.6868,83.2185],
- ['Raipur',21.2514,81.6296],['Ranchi',23.3441,85.3096],['Dehradun',30.3165,78.0322],
- ['Srinagar',34.0837,74.7973],['Thiruvananthapuram',8.5241,76.9366],['Madurai',9.9252,78.1198]];
+/* Places: GeoNames (public domain), all 36 states/UTs, every district,
+   plus every town above 20,000. Stored compact and parsed once. */
+var PLACES=(function(){
+  var out={};
+  for(var st in CITY_DATA){
+    var rows=CITY_DATA[st].split(';'), arr=new Array(rows.length);
+    for(var i=0;i<rows.length;i++){
+      var p=rows[i].split('|');
+      arr[i]=[p[0], +p[1], +p[2]];
+    }
+    out[st]=arr;
+  }
+  return out;
+})();
+var STATE_NAMES=Object.keys(PLACES).sort();
 
 var state={step:-1,setup:{},answers:{},result:null};
 var main=$('quizMain');
@@ -1224,11 +1288,13 @@ function optHTML(v,label,note,sel){
 }
 
 function renderSetup(){
-  var y=new Date().getFullYear(), days='',months='',years='',cities='';
+  var y=new Date().getFullYear(), days='',months='',years='',statesOpt='';
   for(var d=1;d<=31;d++)days+='<option>'+d+'</option>';
   for(var m=0;m<12;m++)months+='<option value="'+(m+1)+'">'+esc(S.months[m])+'</option>';
   for(var yy=y;yy>=1940;yy--)years+='<option>'+yy+'</option>';
-  CITIES.forEach(function(c){cities+='<option value="'+c[1]+','+c[2]+'">'+c[0]+'</option>';});
+  statesOpt='<option value="">'+esc(S.choose)+'</option>';
+  STATE_NAMES.forEach(function(s){ statesOpt+='<option>'+esc(s)+'</option>'; });
+
   main.innerHTML=
     '<div class="step-n">'+esc(S.setupEyebrow)+'</div>'+
     '<div class="q-text">'+esc(S.setupH)+'</div>'+
@@ -1239,16 +1305,38 @@ function renderSetup(){
     '</div>'+
     '<div class="fields">'+
       '<div class="field"><label for="fy">'+esc(S.fYear)+'</label><select id="fy">'+years+'</select></div>'+
-      '<div class="field"><label for="fc">'+esc(S.fCity)+'</label><select id="fc">'+cities+'</select></div>'+
+      '<div class="field"><label for="fs">'+esc(S.fState)+'</label><select id="fs">'+statesOpt+'</select></div>'+
+    '</div>'+
+    '<div class="fields">'+
+      '<div class="field"><label for="fc">'+esc(S.fCity)+'</label>'+
+        '<select id="fc" disabled><option value="">'+esc(S.cityPick)+'</option></select></div>'+
+      '<div class="field"></div>'+
     '</div>'+
     '<div class="err" id="err"></div>'+
     '<div class="q-nav"><button class="btn" id="goBtn">'+esc(S.setupBtn)+'</button></div>';
+
   $('fy').value='2000';
-  $('fc').value='12.9716,77.5946';
+
+  $('fs').onchange=function(){
+    var rows=PLACES[this.value]||[], fc=$('fc');
+    if(!rows.length){
+      fc.innerHTML='<option value="">'+esc(S.cityPick)+'</option>';
+      fc.disabled=true; return;
+    }
+    var o='<option value="">'+esc(S.choose)+'</option>';
+    for(var i=0;i<rows.length;i++)
+      o+='<option value="'+rows[i][1]+','+rows[i][2]+'">'+esc(rows[i][0])+'</option>';
+    fc.innerHTML=o; fc.disabled=false;
+  };
+
   $('goBtn').onclick=function(){
-    var d=+$('fd').value,m=+$('fm').value,yv=+$('fy').value,cc=$('fc').value.split(',');
+    var err=$('err');
+    if(!$('fs').value){ err.textContent=S.errState; return; }
+    if(!$('fc').value){ err.textContent=S.errCity; return; }
+    var d=+$('fd').value,m=+$('fm').value,yv=+$('fy').value;
     var dim=new Date(yv,m,0).getDate();
-    if(d>dim){ $('err').textContent=S.errDays(S.months[m-1],yv,dim); return; }
+    if(d>dim){ err.textContent=S.errDays(S.months[m-1],yv,dim); return; }
+    var cc=$('fc').value.split(',');
     state.setup={year:yv,month:m,day:d,lat:+cc[0],lon:+cc[1],tz:5.5};
     state.step=0; render();
   };
@@ -1263,6 +1351,7 @@ function renderQ(){
     '<div class="q-text">'+esc(Q.q)+'</div>'+
     '<p class="q-help">'+esc(Q.help)+'</p>'+
     '<div class="opts">'+o+'</div>'+
+    ((S.nudges&&S.nudges[state.step])?'<p class="nudge">'+esc(S.nudges[state.step])+'</p>':'')+
     '<div class="q-nav">'+(state.step>0?'<button class="back" id="bk">'+esc(S.back)+'</button>':'')+'</div>';
   Array.prototype.forEach.call(main.querySelectorAll('.opt'),function(b){
     b.onclick=function(){
@@ -1285,7 +1374,7 @@ function renderEventAge(){
     return '<button class="opt" data-a="'+b[1]+'"><span class="mark"></span>'+
            '<span class="lab">'+esc(b[0])+'</span></button>'; }).join('');
   main.innerHTML=
-    '<div class="step-n">'+esc(S.ageEyebrow)+'</div>'+
+    '<div class="step-n">'+esc(S.ageEyebrow(state.step+1))+'</div>'+
     '<div class="q-text">'+esc(S.ageQ)+'</div>'+
     (picked?'<p class="q-picked">'+esc(S.agePicked(picked))+'</p>':'')+
     '<p class="q-help">'+esc(S.ageHelp)+'</p>'+

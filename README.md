@@ -14,7 +14,7 @@ Five meta tags contain the placeholder `SITE_URL`. Crawlers need absolute URLs,
 so WhatsApp and LinkedIn previews will not work until it is replaced:
 
 ```bash
-sed -i 's|SITE_URL|https://rohan27052002.github.io/BirthTimeCalci/|g' index.html
+sed -i 's|SITE_URL|https://YOURUSER.github.io/YOURREPO/|g' index.html
 ```
 
 Everything else works as-is.
@@ -60,6 +60,54 @@ var APP_LINK = 'https://mynaksh.com/app/kundli';   // whatever path the app clai
 Every app button then follows it: the app opens if installed, and the URL falls
 back to the web page if not. No other change needed.
 - One external request: Inter Tight from Google Fonts. Everything else is inline.
+
+### Question order
+
+The seven questions are ordered for completion, not for how the engine uses
+them — the engine reads all answers at once, so order is purely a UX decision.
+
+Easy self-observation comes first (how people read you, your build), then the
+mildly novel one (a birthmark), then family facts. The recall-heavy question —
+whether anyone remembers a time — sits at five, once someone is invested, rather
+than at one where "no idea" reads as failing at the first step. The reflective
+question about life changes is sixth, and an easy factual one closes.
+
+Each screen carries a short line marking progress, so the run feels finite.
+
+### Name sound coverage
+
+The classical pada table holds **93 distinct syllables**. Question seven groups
+them into **17 sound groups** that cover all 93 with no gaps and no overlaps —
+including the G, L, V, Y, B and H sounds and the vowels, all of which are common
+in Indian names.
+
+The stored answer is the group, and the engine matches the pada's syllable
+against the whole group. An earlier version stored a single syllable while
+displaying several, so a name beginning "Ki" was scored as if it began "Ka".
+
+This question only shifts the result when the user's sound matches one of the
+pada syllables the Moon occupied that day — usually one or two groups out of
+seventeen. That is the method working as intended, not a bug: it contributes
+strongly for those users and stays neutral for everyone else.
+
+### Place coverage
+
+State first, then district — two dropdowns, no free typing, so every answer is a
+known value with known coordinates.
+
+- **36 states and union territories**, **all 763 districts**
+- MECE by construction: every place in India sits in exactly one district
+- Largest list is Uttar Pradesh at 75 districts, which a native select handles fine
+- Renamed districts show both names, e.g. `Bengaluru Urban (Bangalore Urban)`,
+  `Chhatrapati Sambhajinagar (Aurangabad)`. Renames are state-scoped, so Bihar's
+  Aurangabad and Chhattisgarh's Bijapur are untouched — those were never renamed.
+
+Coordinates come from **GeoNames** (public domain), preferring the district seat
+where the names agree, rounded to two decimals. Spot-checked against fourteen
+known reference points and bounds-checked against India's extent.
+
+District-level precision is ample here: even a 2° longitude error shifts the
+ascendant by about 2°, against a sign that lasts roughly two hours.
 
 ## How the estimate works
 
