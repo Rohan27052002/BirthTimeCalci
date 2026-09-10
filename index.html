@@ -134,6 +134,10 @@ section{padding:96px 0}
 .prog-fill{height:100%;width:0;background:var(--brand-mud);transition:width 360ms var(--ease)}
 .step-n{font-size:13px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;
   color:var(--fg-brand);margin-bottom:12px}
+.quiz-col{min-width:0}
+.band-wrap{margin-bottom:26px}
+.band-svg{width:100%;height:34px;display:block}
+.band-label{font-size:13px;color:var(--fg-3);margin-top:6px;font-variant-numeric:tabular-nums}
 .q-text{font-family:var(--font-display);font-weight:700;font-size:clamp(23px,3vw,30px);
   line-height:1.2;letter-spacing:-.01em;margin-bottom:10px}
 .q-picked{font-size:15px;color:var(--fg-brand);font-weight:600;margin-bottom:4px}
@@ -183,6 +187,39 @@ section{padding:96px 0}
   padding:11px 14px;font-family:var(--font-body);font-size:15.5px;color:var(--fg-1)}
 .city-opt:hover{background:var(--mud-50)}
 .city-opt+.city-opt{border-top:1px solid var(--border-hair)}
+
+/* inline date picker */
+.cal-label{font-family:var(--font-display);font-weight:700;font-size:19px;
+  color:var(--fg-brand);margin-bottom:10px}
+.cal{border:1px solid var(--border-soft);border-radius:var(--radius-md);
+  padding:12px;background:var(--bg-surface);max-width:340px}
+.cal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.cal-nav{background:none;border:0;cursor:pointer;color:var(--fg-2);font-size:22px;
+  line-height:1;padding:4px 12px;border-radius:var(--radius-sm);font-family:var(--font-body)}
+.cal-nav:hover{background:rgba(22,26,36,.05);color:var(--fg-1)}
+.cal-title{background:none;border:0;cursor:pointer;font-family:var(--font-display);
+  font-weight:700;font-size:16px;color:var(--fg-1);padding:5px 12px;
+  border-radius:var(--radius-sm)}
+.cal-title:hover{background:rgba(22,26,36,.05)}
+.cal-title.as-text{cursor:default}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px}
+.cal-wd{text-align:center;font-size:11px;color:var(--fg-3);padding:4px 0;font-weight:600}
+.cal-day{aspect-ratio:1;background:none;border:0;cursor:pointer;border-radius:50%;
+  font-family:var(--font-body);font-size:14px;color:var(--fg-1);
+  transition:background var(--dur) var(--ease)}
+.cal-day:hover{background:rgba(22,26,36,.06)}
+.cal-day.sel{background:var(--brand-mud);color:var(--fg-on-mud);font-weight:600}
+.cal-day:disabled{color:var(--oat-300);cursor:not-allowed}
+.cal-mg{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.cal-cell{background:none;border:1px solid var(--border-hair);cursor:pointer;
+  border-radius:var(--radius-sm);padding:11px 0;font-family:var(--font-body);
+  font-size:14px;color:var(--fg-1)}
+.cal-cell:hover{background:rgba(22,26,36,.05)}
+.cal-cell.sel{background:var(--brand-mud);color:var(--fg-on-mud);border-color:var(--brand-mud)}
+.cal-cell:disabled{color:var(--oat-300);cursor:not-allowed}
+.cal-day:focus-visible,.cal-cell:focus-visible,.cal-nav:focus-visible,.cal-title:focus-visible{
+  outline:none;box-shadow:var(--shadow-focus)}
+@media(max-width:900px){.cal{max-width:100%}}
 .err{color:#A83224;font-size:14px;min-height:20px;margin-bottom:4px}
 
 /* result */
@@ -198,7 +235,7 @@ section{padding:96px 0}
   border-radius:var(--radius-sm);padding:12px 15px;margin-top:18px;line-height:1.45}
 .verify.part{color:var(--fg-2);background:var(--bg-sunken);border-color:var(--border-hair)}
 .verify .tick{flex:none;line-height:1.4;font-size:14px}
-.res-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:24px 0}
+.res-cards{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin:24px 0}
 .rc{background:var(--bg-sunken);border:1px solid var(--border-hair);
   border-radius:var(--radius-md);padding:16px 18px}
 .rc .k{font-size:13px;color:var(--fg-3);margin-bottom:4px}
@@ -336,7 +373,10 @@ footer a{color:var(--fg-brand)}
           </div>
         </div>
       </div>
-      <div class="quiz-main" id="quizMain"></div>
+      <div class="quiz-col">
+        <div class="band-wrap"><div id="band"></div><div class="band-label" id="bandLabel"></div></div>
+        <div class="quiz-main" id="quizMain"></div>
+      </div>
     </div>
   </div>
 </section>
@@ -382,10 +422,10 @@ hi: {
   metaDesc: 'Janam ka theek time nahi pata? Saat sawaal, do minute. Classical Vedic rectification se apna birth time nikaalein.',
   navCta: 'Shuru karein',
 
-  heroTag: 'Free · saat sawaal · do minute',
+  heroTag: 'Free · lagbhag ek minute · login nahi',
   heroH1a: 'Janam ka time',
   heroH1b: 'nahi pata?',
-  heroSub: 'Ghar mein aksar kisi ko theek se yaad nahi hota. Saat sawaal ka jawab dijiye — hum classical Vedic rectification se aapka birth time nikaal dete hain.',
+  heroSub: 'Ghar mein aksar kisi ko theek se yaad nahi hota. Apne nakshatra, din ke waqt aur ek til ke baare mein kuch chhote sawaal ka jawab dijiye. Baaki hum asli astronomy se nikaal lete hain.',
   heroBtn: 'Mera time nikaalein',
   heroMeta1: 'Asli astrology, andaaza nahi',
   heroMeta2: 'Login ki zaroorat nahi',
@@ -393,19 +433,22 @@ hi: {
   strip: [
     ['Sirf date', 'Birth certificate par aksar sirf date hoti hai. Time ka column khaali, ya "approx" likha hua.'],
     ['Do ghante', 'mein lagna badal jaata hai. Ek ghanta idhar-udhar, aur poori kundali badal jaati hai.'],
-    ['Saat sawaal', 'Rectification mein astrologer yahi poochta hai. Humne wahi process digital kar diya.']
+    ['Lagbhag ek minute', 'Chhote haan ya nahi wale sawaal. Kuch dhoondhna nahi padega.']
   ],
 
   quizH: 'Chaliye shuru karte hain',
-  quizSub: 'Har sawaal ka ek jawab. Jo yaad nahi, uska bhi option hai — chhodiye mat, andaaza bhi chalega.',
+  quizSub: 'Chhote sawaal, zyadatar haan ya nahi. Har ek mein \u201cpata nahi\u201d ka option hai, aur koi ek jawab akela natija tay nahi karta.',
 
   setupEyebrow: 'Pehle do cheezein',
   setupH: 'Janam ki tareekh aur jagah',
   setupHelp: 'Time nahi chahiye — wahi to hum nikaal rahe hain. Tareekh aur jagah se hum us din ka aasman calculate karte hain.',
+  wdays: ['So','So','Ma','Bu','Gu','Shu','Sha'],
+  pickDate: 'Tareekh chuniye',
+  monthsShort: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
   fDay: 'Din', fMonth: 'Mahina', fYear: 'Saal',
-  fState: 'Janam ka rajya', fCity: 'Janam ka zila',
+  fDate: 'Janam ki tareekh', fState: 'Janam ka rajya', fCity: 'Janam ka zila',
   cityPick: 'Pehle rajya chuniye', choose: 'Chuniye',
-  errState: 'Rajya chuniye.', errCity: 'Zila chuniye.',
+  errDate: 'Tareekh chuniye.', errState: 'Rajya chuniye.', errCity: 'Zila chuniye.',
   setupBtn: 'Shuru karein',
   errDays: function(m,y,n){ return m+' '+y+' mein sirf '+n+' din hain.'; },
 
@@ -554,6 +597,14 @@ hi: {
     ['soft features aur badi expressive aankhon wale','naram dil, doosron ka mood turant mehsoos karne wale']
   ],
 
+  cascadeEyebrow: 'Janam ka waqt',
+  markEyebrow: 'Ek nishaani',
+  starEyebrow: 'Aakhri baat',
+  bandStart: 'Poora din khula hai',
+  bandLeft: 'ka daayra bacha',
+  cSun: 'Surya raashi',
+  phaseLabel: {cascade:'Waqt tay kar rahe hain',mark:'Nishaani',star:'Nakshatra'},
+  rangeNote: function(a,b){ return 'Aapke jawab ke hisaab se: '+a+' se '+b+' ke beech'; },
   resEyebrow: 'Aa gaya',
   resH: 'Aapka janam ka time',
   resWindow: function(a,b){ return 'Sabse sambhavit window: '+a+' – '+b; },
@@ -576,27 +627,25 @@ hi: {
   shareWa: 'WhatsApp par bhejein', shareCp: 'Result copy karein', shareDone: 'Copy ho gaya',
   shareText: function(t,l){ return 'Mera birth time nikla '+t+' — '+l+' lagna. Aapko apna pata hai? '; },
 
-  methodH: 'Ye saat sawaal hi kyun',
-  methodSub: 'Har sawaal ek alag cheez pin karta hai. Milkar ye aapke time ko chaubees ghante se ghata kar lagna ke ek window tak le aate hain.',
+  methodH: 'Ye kaam kaise karta hai',
+  methodSub: 'Do jawab poore minute hata dete hain. Uske baad chaar sawaal, aapke hisse ke mutabik, bache hue waqt ko chhota karte hain.',
   whyLabel: 'Kyun kaam karta hai:',
   method: [
-    ['Ghar ki yaad', 'Sabse zyada jaankari yahi deta hai. "Subah thi" bhi chaubees ghante ko chaar-paanch ghante mein badal deta hai.',
-     'Ye search window set karta hai. Saath hi Sooraj ufaq ke upar tha ya neeche — ye classical din/raat check hai jo aadhe options turant kaat deta hai.'],
-    ['Body ka build', 'Har rising sign ka apna typical build hota hai — patla, bhaari, lamba, gol.',
-     'Lagna deha yaani sharir ko govern karta hai. Ye rectification ka sabse purana input hai. Note: ye Sastri ki kitaab se nahi, aam jataka parampara se aata hai.'],
-    ['Pehla impression', 'Log aapko jaanne se pehle kya sochte hain.',
-     'Lagna personality ki bahri jhalak deta hai. Ye doosre sawaal ka swatantra cross-check hai — dono agree karein to bharosa badhta hai.'],
-    ['Til ya nishaan ki jagah', 'Janam se jo nishaan hai, wo sharir ke kis hisse par hai.',
-     'Kalapurusha concept: sar se pair tak har hissa ek raashi se juda hai. Ye bhi aam parampara se hai, Sastri ki kitaab se nahi.'],
-    ['Delivery kaise hui', 'Normal, lambi labour, planned C-section, ya emergency.',
-     'Do kaam karta hai — classical texts delivery ki mushkil ko lagna aur aathve bhaav se padhte hain, aur planned C-section India mein aam taur par subah ke OT slots mein hote hain, jo ek asli-duniya ka timing clue deta hai.'],
-    ['Sabse bada badlaav', 'Kaun si cheez, aur kis umar mein.',
-     'Yahi vishleshan wala hissa hai. Har sambhavit time ke liye hum Vimshottari dasha nikaalte hain aur dekhte hain ki us umar mein chal raha graha us ghatna ka swabhavik karak hai ya nahi.'],
-    ['Naam ka pehla akshar', 'Agar naam nakshatra dekh kar rakha gaya tha.',
-     'Ye seedha Sastri ki mukhya vidhi mein jaata hai. Namkaran mein naam ka pehla akshar janma nakshatra ke pada se aata hai, aur nakshatra do sharton mein se ek hai.']
+    ['Aapka nakshatra', 'Agar aapko nakshatra pata hai, to hum sirf wahi minute dekhte hain jab Chandrma sach mein us nakshatra mein tha.',
+     'Ye pakki chhanni hai, sirf jhukav nahi. Chandrma lagbhag ek din mein ek nakshatra paar karta hai, isliye jis din wo badalta hai us din ye akela hi din ka bada hissa hata deta hai.'],
+    ['Andhera ya ujaala', 'Sooraj nikla tha ya nahi, ye baat lagbhag sabko pakki yaad hoti hai.',
+     'Ye bhi pakki chhanni hai. Aapki tareekh aur zile ka asli sooryoday aur sooryast nikaal kar dekhte hain, isliye \u201candhera\u201d ka jawab kabhi din ka waqt nahi de sakta.'],
+    ['Chaar sawaal, aapke hisaab se', 'Jisne andhera chuna, usse aadhi raat, neend aur dukaan ke waqt ka poochha jaata hai. Jisne ujaala chuna, usse dopahar aur parchhai ka.',
+     'Kisi se aisa sawaal nahi poochha jaata jo uske hisse ko chhota na kar sake. Chaar sawaal phir bhi vote karte hain, isliye ek bhooli hui baat natije ko badal deti hai, tay nahi karti.'],
+    ['Pachchees minute ka grid', 'Iske baad classical ganit us daayre ke andar minute chunta hai.',
+     'Uttara Kalamrita ka day-constellation check, Prof. P.S. Sastri, adhyaya 3: V yaani sooryoday se vighati lekar, nakshatra (4V) mod 9 aur din (3V) mod 7 se aata hai. Kitaab ki chhapi tables se milaya gaya, 81 mein se 81 sahi.'],
+    ['Aapka til', 'Janam se jo nishaan hai, wo sharir ke kis hisse par hai.',
+     'Kalapurusha sar se pair tak raashiyon ko jodta hai. Hum ise sirf do sambhavit minute mein se ek chunne ke liye lete hain, aapki yaad ko kaatne ke liye nahi.'],
+    ['Hum kya daawa nahi karte', 'Daayra kabhi pachchees minute se chhota nahi bataya jaata.',
+     'Classical grid ka faasla itna hi hai, isse chhota kuch bhi banaya hua hoga. Agar aapke jawab aapas mein nahi milte, to daayra chauda ho jaata hai aur bharosa kam dikhta hai.']
   ],
 
-  footerA: 'Vidhi: classical Vedic rectification. Uttara Kalamrita ka day-constellation check (Prof. P.S. Sastri, Rectification of Birth Time, adhyaya 3), lagna–deha sambandh, Kalapurusha anga-vibhajan, Vimshottari dasha cross-check, aur nakshatra-pada namkaran. Lagna Lahiri ayanamsa se sidereal nikaala jaata hai.',
+  footerA: 'Vidhi: classical Vedic rectification. Uttara Kalamrita ka day-constellation check (Prof. P.S. Sastri, Rectification of Birth Time, adhyaya 3) aur Kalapurusha anga-vibhajan. Sooryoday, sooryast, Chandrma aur lagna aapki tareekh aur zile se Lahiri ayanamsa ke saath sidereal nikaale jaate hain.',
   footerB: 'Ye ek anumaan hai, birth certificate nahi. Pushti ke liye MyNaksh par astrologer se baat kijiye.',
   storeHint: 'Android par Google Play, iPhone par App Store.',
   storeGoogle: 'Google Play',
@@ -614,10 +663,10 @@ en: {
   metaDesc: "Don't know your exact birth time? Seven questions, two minutes. Work it out using classical Vedic rectification.",
   navCta: 'Get started',
 
-  heroTag: 'Free · seven questions · two minutes',
+  heroTag: 'Free · about a minute · no login',
   heroH1a: 'Don\u2019t know your',
   heroH1b: 'birth time?',
-  heroSub: 'Most families never wrote it down. Answer seven questions and we will work it out using classical Vedic rectification.',
+  heroSub: 'Most families never wrote it down. Answer a few simple questions about your birth star, the time of day and one birthmark. We work out the rest from real astronomy.',
   heroBtn: 'Find my time',
   heroMeta1: 'Real astrology, not guesswork',
   heroMeta2: 'No login needed',
@@ -625,19 +674,22 @@ en: {
   strip: [
     ['Date only', 'Birth certificates usually record the date alone. The time field is blank, or marked approximate.'],
     ['Two hours', 'is how long each ascendant lasts. An hour either way changes the whole chart.'],
-    ['Seven questions', 'are what an astrologer asks during rectification. We made that process instant.']
+    ['About a minute', 'Simple yes or no questions about what that hour is normally like. Nothing to look up.']
   ],
 
   quizH: 'Let us begin',
-  quizSub: 'One answer per question. Every question has an option for things you do not know, so nothing needs skipping — a guess is fine.',
+  quizSub: 'Short questions, mostly yes or no. Every one has a \u201cnot sure\u201d option, and no single answer decides the result on its own.',
 
   setupEyebrow: 'Two things first',
   setupH: 'Date and place of birth',
   setupHelp: 'We do not need the time — that is what we are working out. The date and place let us calculate the sky over that day.',
+  wdays: ['Su','Mo','Tu','We','Th','Fr','Sa'],
+  pickDate: 'Pick a date',
+  monthsShort: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
   fDay: 'Day', fMonth: 'Month', fYear: 'Year',
-  fState: 'State of birth', fCity: 'District of birth',
+  fDate: 'Date of birth', fState: 'State of birth', fCity: 'District of birth',
   cityPick: 'Pick a state first', choose: 'Select',
-  errState: 'Please pick a state.', errCity: 'Please pick a district.',
+  errDate: 'Please pick a date.', errState: 'Please pick a state.', errCity: 'Please pick a district.',
   setupBtn: 'Begin',
   errDays: function(m,y,n){ return m+' '+y+' only has '+n+' days.'; },
 
@@ -785,6 +837,14 @@ en: {
     ['soft featured, with large expressive eyes','gentle, and quick to absorb the mood of a room']
   ],
 
+  cascadeEyebrow: 'Time of day',
+  markEyebrow: 'One marker',
+  starEyebrow: 'Last thing',
+  bandStart: 'All 24 hours still open',
+  bandLeft: 'left to search',
+  cSun: 'Sun sign',
+  phaseLabel: {cascade:'Narrowing the time',mark:'Body marker',star:'Birth star'},
+  rangeNote: function(a,b){ return 'Your answers point to between '+a+' and '+b; },
   resEyebrow: 'Here it is',
   resH: 'Your birth time',
   resWindow: function(a,b){ return 'Most likely window: '+a+' – '+b; },
@@ -807,27 +867,25 @@ en: {
   shareWa: 'Send on WhatsApp', shareCp: 'Copy result', shareDone: 'Copied',
   shareText: function(t,l){ return 'My birth time worked out to '+t+' — '+l+' rising. Do you know yours? '; },
 
-  methodH: 'Why these seven questions',
-  methodSub: 'Each one pins down something different. Together they narrow twenty-four hours to a single ascendant window.',
+  methodH: 'How this works',
+  methodSub: 'Two answers rule minutes out completely. Four more, chosen to suit them, narrow what is left.',
   whyLabel: 'Why it works:',
   method: [
-    ['What the family remembers', 'This carries the most information of any single question. Even "it was morning" cuts twenty-four hours down to four or five.',
-     'It sets the search window, and tells us whether the Sun was above or below the horizon — a classical day/night check that rules out half the options immediately.'],
-    ['Your build', 'Every rising sign has a characteristic build — lean, heavy, tall, rounded.',
-     'The ascendant governs deha, the physical body. This is the oldest input in rectification. Note: it comes from general jataka tradition, not from the Sastri text.'],
-    ['First impression', 'What people think before they know you.',
-     'The ascendant governs outward projection. This is an independent cross-check on the build question — when both agree, confidence rises.'],
-    ['Where your birthmark is', 'Which part of the body carries a mark you were born with.',
-     'The Kalapurusha correspondence maps the zodiac onto the body from head to feet. Also general tradition rather than Sastri.'],
-    ['How the delivery went', 'Normal, long labour, planned caesarean, or emergency.',
-     'Two things at once — classical texts read difficulty of delivery from the ascendant and eighth house, and planned caesareans in India cluster in morning theatre slots, which is a genuine real-world timing prior.'],
-    ['Your biggest life change', 'Which area, and at roughly what age.',
-     'This is the analytical part. For every candidate time we compute the Vimshottari dasha and check whether the period running at that age belongs to a natural significator of that kind of event.'],
-    ['The first letter of your name', 'If your name was chosen from your birth star.',
-     'This feeds straight into Sastri\u2019s primary method. In traditional naming the first syllable comes from the pada of the birth star, and the birth star is one of the two conditions.']
+    ['Your birth star', 'If you know your nakshatra, we only consider minutes when the Moon was genuinely in it.',
+     'This is a hard filter, not a preference. The Moon moves through one nakshatra roughly every day, so on the days it crosses a boundary this alone removes a large part of the day.'],
+    ['Dark or light', 'Whether the sun was up is the one thing almost everyone is sure of.',
+     'Also a hard filter. We compute the real sunrise and sunset for your date and district, so an answer of \u201cdark\u201d can never come back with a daytime result.'],
+    ['Four questions, chosen for you', 'Someone who says it was dark is asked about midnight, sleep and shop hours. Someone who says it was light is asked about noon and shadows.',
+     'Nobody is asked a question that cannot narrow their half of the day. Each of the four still votes rather than gating, so a single misremembered answer shifts the estimate instead of deciding it outright.'],
+    ['A twenty-five minute grid', 'Classical arithmetic then picks the minute inside the range.',
+     'The Uttara Kalamrita day-constellation check from Prof. P.S. Sastri, ch. 3: with V as vighatis from sunrise, the birth star follows (4V) mod 9 and the weekday (3V) mod 7. Verified against the book\u2019s printed tables, 81 of 81 entries.'],
+    ['Your birthmark', 'Which part of the body carries a mark you were born with.',
+     'The Kalapurusha correspondence maps the zodiac from head to feet. We use it only to choose between candidate minutes, never to override what you remember.'],
+    ['What we do not claim', 'The range is never reported tighter than twenty-five minutes.',
+     'That is the spacing of the classical grid, so anything finer would be invented. If your answers contradict each other the range widens and the confidence drops, rather than showing a precise-looking number we cannot stand behind.']
   ],
 
-  footerA: 'Method: classical Vedic rectification. The Uttara Kalamrita day-constellation check (Prof. P.S. Sastri, Rectification of Birth Time, ch. 3), the ascendant\u2019s relationship to the body, the Kalapurusha limb correspondence, a Vimshottari dasha cross-check, and birth-star naming. The ascendant is computed sidereally using the Lahiri ayanamsa.',
+  footerA: 'Method: classical Vedic rectification. The Uttara Kalamrita day-constellation check (Prof. P.S. Sastri, Rectification of Birth Time, ch. 3) and the Kalapurusha limb correspondence. Sunrise, sunset, the Moon and the ascendant are computed from your date and district, sidereally, using the Lahiri ayanamsa.',
   footerB: 'This is an estimate, not a birth record. For confirmation, speak to an astrologer on MyNaksh.',
   storeHint: 'Google Play for Android, App Store for iPhone.',
   storeGoogle: 'Google Play',
@@ -836,6 +894,294 @@ en: {
   appBarBtn: 'Open the app',
   langLabel: 'Hinglish',
   langAria: 'Hinglish mein padhein'
+}
+};
+
+/* =========================================================
+   Time-of-day cascade.
+   Every node is a yes/no or a two-way choice, phrased about the
+   AREA rather than the family: a household in a delivery is behaving
+   abnormally, the street outside is not. "Would have" signals that
+   we want reasoning about the hour, not recall of the day.
+
+   win: [[base, offset], [base, offset]]  base = 'sr' | 'ss' | 'abs'
+   The window sets the honest error bar, so each leaf is kept tight.
+   ========================================================= */
+var CASCADE = {
+
+hi: { start:'c1', nodes:{
+  c1:{ q:'Baahar andhera tha ya ujaala?',
+       help:'Jo aam taur par us waqt hota hai, wahi sochiye.',
+       opts:[ {l:'Andhera',  go:'c2', prov:[['ss',0.1],['sr',-0.1]]},
+              {l:'Ujaala',   go:'c5', prov:[['sr',0],['ss',0]]},
+              {l:'Pata nahi', win:[['abs',0],['abs',24]]} ]},
+
+  c2:{ q:'Aasman narangi tha — sooraj abhi dooba tha, ya nikalne wala tha?',
+       help:'Shaam ya subah ki wo halki roshni.',
+       opts:[ {l:'Haan, narangi tha', go:'c3', prov:[['ss',-0.5],['sr',0.5]]},
+              {l:'Nahi, pura andhera tha', go:'c4', prov:[['ss',0.75],['sr',-0.75]]},
+              {l:'Pata nahi', win:[['ss',0.25],['sr',-0.25]]} ]},
+
+  c3:{ q:'Sooraj dooba tha, ya nikal raha tha?',
+       opts:[ {l:'Dooba tha (shaam)',      win:[['ss',-0.25],['ss',1.25]]},
+              {l:'Nikal raha tha (subah)', win:[['sr',-1.25],['sr',0.25]]} ]},
+
+  c4:{ q:'Aapke ilaake ki dukaanein us waqt khuli hoti hain?',
+       help:'Us ghante mein aam taur par kya hota hai.',
+       opts:[ {l:'Haan, khuli hoti hain', win:[['ss',0.75],['abs',22]]},
+              {l:'Nahi, band ho jaati hain', go:'c4b', prov:[['abs',21.5],['sr',-0.75]]},
+              {l:'Pata nahi', win:[['ss',0.75],['abs',23.5]]} ]},
+
+  c4b:{ q:'Sadak par log aur gaadiyan chal rahi hoti hain?',
+        opts:[ {l:'Haan, chalti hain',   win:[['abs',21.5],['abs',23.5]]},
+               {l:'Nahi, sannata hota hai', go:'c4c', prov:[['abs',23],['sr',-0.75]]},
+               {l:'Pata nahi',           win:[['abs',21.5],['abs',24.5]]} ]},
+
+  c4c:{ q:'Wo waqt aadhi raat ke qareeb tha, ya subah ke qareeb?',
+        opts:[ {l:'Aadhi raat ke qareeb', win:[['abs',23],['abs',25.5]]},
+               {l:'Subah ke qareeb',      win:[['abs',25.5],['sr',-1]]},
+               {l:'Pata nahi',            win:[['abs',23],['sr',-1]]} ]},
+
+  c5:{ q:'Aasman narangi tha — sooraj abhi nikla tha, ya doobne wala tha?',
+       opts:[ {l:'Haan, narangi tha', go:'c6', prov:[['sr',-0.5],['ss',0.5]]},
+              {l:'Nahi, saaf din tha', go:'c7', prov:[['sr',0.5],['ss',-0.5]]},
+              {l:'Pata nahi', win:[['sr',0],['ss',0]]} ]},
+
+  c6:{ q:'Sooraj nikal raha tha, ya doob raha tha?',
+       opts:[ {l:'Nikal raha tha (subah)', win:[['sr',-0.25],['sr',1.25]]},
+              {l:'Doob raha tha (shaam)',  win:[['ss',-1.25],['ss',0.25]]} ]},
+
+  c7:{ q:'Sooraj lagbhag sar ke upar tha — parchhai bahut chhoti?',
+       help:'Dopahar ka waqt.',
+       opts:[ {l:'Haan, sar ke upar',  win:[['abs',11.5],['abs',14]]},
+              {l:'Nahi, ek taraf tha', go:'c8', prov:[['sr',0.5],['ss',-0.5]]},
+              {l:'Pata nahi', win:[['abs',10],['abs',15.5]]} ]},
+
+  c8:{ q:'Wo dopahar se pehle tha, ya baad mein?',
+       opts:[ {l:'Pehle (subah ka hissa)', go:'c9', prov:[['sr',0.25],['abs',12]]},
+              {l:'Baad mein (shaam ka hissa)', go:'c10', prov:[['abs',12],['ss',-0.25]]},
+              {l:'Pata nahi', win:[['sr',1],['ss',-1]]} ]},
+
+  c9:{ q:'Us waqt log kaam aur school ke liye nikal rahe hote hain?',
+       help:'Subah ki bheed.',
+       opts:[ {l:'Haan, bheed hoti hai',   win:[['abs',7.5],['abs',10]]},
+              {l:'Nahi, abhi shuruaat thi', win:[['sr',0.25],['abs',7.5]]},
+              {l:'Nahi, bheed nikal chuki thi', win:[['abs',10],['abs',11.5]]} ]},
+
+  c10:{ q:'Us waqt log ghar wapas laut rahe hote hain?',
+        help:'Shaam ki bheed.',
+        opts:[ {l:'Haan, laut rahe hote hain', win:[['abs',16.5],['abs',19]]},
+               {l:'Nahi, abhi dopahar thi',    win:[['abs',14],['abs',16.5]]},
+               {l:'Pata nahi',                 win:[['abs',14],['abs',19]]} ]}
+}},
+
+en: { start:'c1', nodes:{
+  c1:{ q:'Was it dark outside, or light?',
+       help:'Think about what that hour is normally like where you were born.',
+       opts:[ {l:'Dark',     go:'c2', prov:[['ss',0.1],['sr',-0.1]]},
+              {l:'Light',    go:'c5', prov:[['sr',0],['ss',0]]},
+              {l:'Not sure', win:[['abs',0],['abs',24]]} ]},
+
+  c2:{ q:'Was the sky orange — sun just gone down, or about to come up?',
+       help:'That low, soft light at either end of the day.',
+       opts:[ {l:'Yes, orange sky', go:'c3', prov:[['ss',-0.5],['sr',0.5]]},
+              {l:'No, fully dark',  go:'c4', prov:[['ss',0.75],['sr',-0.75]]},
+              {l:'Not sure', win:[['ss',0.25],['sr',-0.25]]} ]},
+
+  c3:{ q:'Was the sun going down, or coming up?',
+       opts:[ {l:'Going down (evening)', win:[['ss',-0.25],['ss',1.25]]},
+              {l:'Coming up (morning)',  win:[['sr',-1.25],['sr',0.25]]} ]},
+
+  c4:{ q:'Would the shops in your area still be open at that hour?',
+       help:'Not that night in particular — that hour, normally.',
+       opts:[ {l:'Yes, still open',   win:[['ss',0.75],['abs',22]]},
+              {l:'No, shut by then',  go:'c4b', prov:[['abs',21.5],['sr',-0.75]]},
+              {l:'Not sure',          win:[['ss',0.75],['abs',23.5]]} ]},
+
+  c4b:{ q:'Would there still be people and vehicles on the road?',
+        opts:[ {l:'Yes, still moving',  win:[['abs',21.5],['abs',23.5]]},
+               {l:'No, empty and quiet', go:'c4c', prov:[['abs',23],['sr',-0.75]]},
+               {l:'Not sure',           win:[['abs',21.5],['abs',24.5]]} ]},
+
+  c4c:{ q:'Was it closer to midnight, or closer to sunrise?',
+        opts:[ {l:'Closer to midnight', win:[['abs',23],['abs',25.5]]},
+               {l:'Closer to sunrise',  win:[['abs',25.5],['sr',-1]]},
+               {l:'Not sure',           win:[['abs',23],['sr',-1]]} ]},
+
+  c5:{ q:'Was the sky orange — sun just come up, or about to go down?',
+       opts:[ {l:'Yes, orange sky',  go:'c6', prov:[['sr',-0.5],['ss',0.5]]},
+              {l:'No, plain daylight', go:'c7', prov:[['sr',0.5],['ss',-0.5]]},
+              {l:'Not sure', win:[['sr',0],['ss',0]]} ]},
+
+  c6:{ q:'Was the sun coming up, or going down?',
+       opts:[ {l:'Coming up (morning)', win:[['sr',-0.25],['sr',1.25]]},
+              {l:'Going down (evening)', win:[['ss',-1.25],['ss',0.25]]} ]},
+
+  c7:{ q:'Was the sun almost straight overhead, with hardly any shadow?',
+       help:'The middle of the day.',
+       opts:[ {l:'Yes, overhead',      win:[['abs',11.5],['abs',14]]},
+              {l:'No, off to one side', go:'c8', prov:[['sr',0.5],['ss',-0.5]]},
+              {l:'Not sure',           win:[['abs',10],['abs',15.5]]} ]},
+
+  c8:{ q:'Was it before midday, or after?',
+       opts:[ {l:'Before midday', go:'c9', prov:[['sr',0.25],['abs',12]]},
+              {l:'After midday',  go:'c10', prov:[['abs',12],['ss',-0.25]]},
+              {l:'Not sure', win:[['sr',1],['ss',-1]]} ]},
+
+  c9:{ q:'Would people be heading out to work and school at that hour?',
+       help:'The morning rush.',
+       opts:[ {l:'Yes, the rush was on',      win:[['abs',7.5],['abs',10]]},
+              {l:'No, too early for that',    win:[['sr',0.25],['abs',7.5]]},
+              {l:'No, the rush was over',     win:[['abs',10],['abs',11.5]]} ]},
+
+  c10:{ q:'Would people be heading home at that hour?',
+        help:'The evening rush.',
+        opts:[ {l:'Yes, heading home',      win:[['abs',16.5],['abs',19]]},
+               {l:'No, still afternoon',    win:[['abs',14],['abs',16.5]]},
+               {l:'Not sure',               win:[['abs',14],['abs',19]]} ]}
+}}
+};
+
+var FLOW = {
+hi:{
+  nakAsk:{ q:'Kya aapko apna nakshatra pata hai?',
+    help:'Purani kundali mein likha ho, ya pandit ji ne bataya ho. Nahi pata to bas nahi chuniye.',
+    yes:'Haan, pata hai', no:'Nahi pata' },
+  nakPick:{ q:'Kaunsa nakshatra?', help:'List mein se chuniye.' },
+  darkAsk:{ q:'Baahar andhera tha ya ujaala?',
+    help:'Sabse zaroori jawab yahi hai. Andhera matlab sooraj dooba hua tha.',
+    opts:[{v:'dark',l:'Andhera'},{v:'light',l:'Ujaala'},{v:'',l:'Pata nahi'}] },
+  voteHelp:'Us din ki nahi \u2014 bas us ghante mein aam taur par kya hota hai, wahi sochiye.',
+  votesDark:[
+    {k:'shops',    q:'Aapke ghar ke paas ki dukaanein us waqt khuli hoti hain?',
+                   yl:'Haan, khuli hoti hain', nl:'Nahi, band ho chuki hoti hain'},
+    {k:'asleep',   q:'Aas-paas ke log us waqt so chuke hote hain?',
+                   yl:'Haan, so chuke hote hain', nl:'Nahi, abhi jaage hote hain'},
+    {k:'aftermid', q:'Kya aadhi raat beet chuki thi?',
+                   yl:'Haan, baarah ke baad', nl:'Nahi, baarah se pehle'},
+    {k:'predawn',  q:'Raat ka doosra hissa tha, subah ke kareeb?',
+                   yl:'Haan, subah ke kareeb', nl:'Nahi, aadhi raat ke kareeb'}
+  ],
+  votesLight:[
+    {k:'beforenoon', q:'Ye dopahar baarah baje se pehle tha, ya baad mein?',
+                     yl:'Baarah se pehle', nl:'Baarah ke baad'},
+    {k:'lowsun',     q:'Sooraj aasman mein neeche tha aur parchhaiyan lambi thi?',
+                     yl:'Haan, sooraj neeche, parchhai lambi', nl:'Nahi, sooraj upar tha'},
+    {k:'shopsday',   q:'Aapke ghar ke paas ki dukaanein us waqt khul chuki hoti hain?',
+                     yl:'Haan, khul chuki hoti hain', nl:'Nahi, abhi bahut jaldi thi'},
+    {k:'highsun',    q:'Sooraj lagbhag seedha sar ke upar tha?',
+                     yl:'Haan, sar ke upar', nl:'Nahi, ek taraf tha'}
+  ],
+  votesUnsure:[
+    {k:'beforenoon', q:'Ye dopahar baarah baje se pehle tha, ya baad mein?',
+                     yl:'Baarah se pehle', nl:'Baarah ke baad'},
+    {k:'aftermid',   q:'Kya aadhi raat beet chuki thi?',
+                     yl:'Haan, baarah ke baad', nl:'Nahi, baarah se pehle'},
+    {k:'asleep',     q:'Aas-paas ke log us waqt so chuke hote hain?',
+                     yl:'Haan, so chuke hote hain', nl:'Nahi, abhi jaage hote hain'},
+    {k:'highsun',    q:'Sooraj lagbhag seedha sar ke upar tha?',
+                     yl:'Haan, sar ke upar', nl:'Nahi, ek taraf tha'}
+  ],
+  yes:'Haan', no:'Nahi', dunno:'Pata nahi',
+  nakList:[
+      {v:0, l:'Ashwini'},
+      {v:1, l:'Bharani'},
+      {v:2, l:'Krittika'},
+      {v:3, l:'Rohini'},
+      {v:4, l:'Mrigashira'},
+      {v:5, l:'Ardra'},
+      {v:6, l:'Punarvasu'},
+      {v:7, l:'Pushya'},
+      {v:8, l:'Ashlesha'},
+      {v:9, l:'Magha'},
+      {v:10, l:'Purva Phalguni'},
+      {v:11, l:'Uttara Phalguni'},
+      {v:12, l:'Hasta'},
+      {v:13, l:'Chitra'},
+      {v:14, l:'Swati'},
+      {v:15, l:'Vishakha'},
+      {v:16, l:'Anuradha'},
+      {v:17, l:'Jyeshtha'},
+      {v:18, l:'Mula'},
+      {v:19, l:'Purva Ashadha'},
+      {v:20, l:'Uttara Ashadha'},
+      {v:21, l:'Shravana'},
+      {v:22, l:'Dhanishta'},
+      {v:23, l:'Shatabhisha'},
+      {v:24, l:'Purva Bhadrapada'},
+      {v:25, l:'Uttara Bhadrapada'},
+      {v:26, l:'Revati'}
+  ]
+},
+en:{
+  nakAsk:{ q:'Do you know your birth star (nakshatra)?',
+    help:'It may be written on an old kundali, or a pandit may have told your family. If not, just say no.',
+    yes:'Yes, I know it', no:'No' },
+  nakPick:{ q:'Which one?', help:'Pick from the list.' },
+  darkAsk:{ q:'Was it dark outside, or light?',
+    help:'The one answer that matters most. Dark means the sun was already down.',
+    opts:[{v:'dark',l:'Dark'},{v:'light',l:'Light'},{v:'',l:'Not sure'}] },
+  voteHelp:'Not that day in particular \u2014 just what that hour is usually like where you were born.',
+  votesDark:[
+    {k:'shops',    q:'Would the shops near your home still have been open?',
+                   yl:'Yes, still open', nl:'No, shut by then'},
+    {k:'asleep',   q:'Would most people nearby have already gone to sleep?',
+                   yl:'Yes, asleep', nl:'No, still awake'},
+    {k:'aftermid', q:'Had it passed midnight?',
+                   yl:'Yes, past midnight', nl:'No, before midnight'},
+    {k:'predawn',  q:'Was it in the second half of the night, closer to morning?',
+                   yl:'Yes, closer to morning', nl:'No, closer to midnight'}
+  ],
+  votesLight:[
+    {k:'beforenoon', q:'Was it before 12 noon, or after?',
+                     yl:'Before noon', nl:'After noon'},
+    {k:'lowsun',     q:'Was the sun low in the sky, with long shadows?',
+                     yl:'Yes, low sun and long shadows', nl:'No, the sun was higher up'},
+    {k:'shopsday',   q:'Would the shops near your home have opened by then?',
+                     yl:'Yes, open by then', nl:'No, still too early'},
+    {k:'highsun',    q:'Was the sun almost straight overhead?',
+                     yl:'Yes, overhead', nl:'No, off to one side'}
+  ],
+  votesUnsure:[
+    {k:'beforenoon', q:'Was it before 12 noon, or after?',
+                     yl:'Before noon', nl:'After noon'},
+    {k:'aftermid',   q:'Had it passed midnight?',
+                     yl:'Yes, past midnight', nl:'No, before midnight'},
+    {k:'asleep',     q:'Would most people nearby have been asleep?',
+                     yl:'Yes, asleep', nl:'No, still awake'},
+    {k:'highsun',    q:'Was the sun almost straight overhead?',
+                     yl:'Yes, overhead', nl:'No, off to one side'}
+  ],
+  yes:'Yes', no:'No', dunno:'Not sure',
+  nakList:[
+      {v:0, l:'Ashwini'},
+      {v:1, l:'Bharani'},
+      {v:2, l:'Krittika'},
+      {v:3, l:'Rohini'},
+      {v:4, l:'Mrigashira'},
+      {v:5, l:'Ardra'},
+      {v:6, l:'Punarvasu'},
+      {v:7, l:'Pushya'},
+      {v:8, l:'Ashlesha'},
+      {v:9, l:'Magha'},
+      {v:10, l:'Purva Phalguni'},
+      {v:11, l:'Uttara Phalguni'},
+      {v:12, l:'Hasta'},
+      {v:13, l:'Chitra'},
+      {v:14, l:'Swati'},
+      {v:15, l:'Vishakha'},
+      {v:16, l:'Anuradha'},
+      {v:17, l:'Jyeshtha'},
+      {v:18, l:'Mula'},
+      {v:19, l:'Purva Ashadha'},
+      {v:20, l:'Uttara Ashadha'},
+      {v:21, l:'Shravana'},
+      {v:22, l:'Dhanishta'},
+      {v:23, l:'Shatabhisha'},
+      {v:24, l:'Purva Bhadrapada'},
+      {v:25, l:'Uttara Bhadrapada'},
+      {v:26, l:'Revati'}
+  ]
 }
 };
 
@@ -872,6 +1218,14 @@ function moonLon(jd){var T=(jd-2451545)/36525,r=function(x){return x*D2R;};
    -0.030383*Math.sin(r(M+Mp))+0.015327*Math.sin(r(2*D-2*F))-0.012528*Math.sin(r(Mp+2*F))
    +0.01098*Math.sin(r(Mp-2*F));
   return n360(l-ayanamsa(jd));}
+function sunLon(jd){
+  var T=(jd-2451545)/36525;
+  var L0=280.46646+36000.76983*T;
+  var M=(357.52911+35999.05029*T)*D2R;
+  var C=(1.914602-0.004817*T)*Math.sin(M)+(0.019993-0.000101*T)*Math.sin(2*M)
+       +0.000289*Math.sin(3*M);
+  return n360(L0+C-ayanamsa(jd));
+}
 function sunEvents(y,m,d,lat,lon,tz){
   var jdN=julianDay(y,m,d,12-tz),T=(jdN-2451545)/36525;
   var M=(357.52911+35999.05029*T)*D2R;
@@ -966,19 +1320,32 @@ function rectify(inp){
                        inp.lat,inp.lon,inp.tz);
   var srPrev=sePrev.sunrise;
   var jsDow=new Date(Date.UTC(inp.year,inp.month-1,inp.day)).getUTCDay();
-  var W={early_morning:[sr-1.5,sr+1.5],morning:[sr+1,12],afternoon:[12,16.5],
-    evening:[16.5,ss+1],night:[ss+0.5,24],late_night:[0,Math.max(1,sr-0.5)],unknown:[0,24]};
-  var w=W[A.window]||W.unknown, ws=w[0], we=w[1];
-  var hardAll = (A.window==='unknown');
-  // Family memory is fuzzy, so it acts as a scoring prior, not a hard cut-off.
-  // A birth remembered as "morning" can genuinely sit 40 minutes either side.
-  function windowBonus(h){
-    if(hardAll)return 0;
-    var inW=(h>=ws&&h<=we)||(h+24>=ws&&h+24<=we);
-    if(inW)return 2.2;
-    var g=0.75; // 45-minute grace band
-    var near=(h>=ws-g&&h<=we+g)||(h+24>=ws-g&&h+24<=we+g);
-    return near?1.0:0;
+  // The cascade hands us an explicit window in local hours. It is the only
+  // input whose validity does not rest on a classical correspondence, so it
+  // sets the error bar: report its centre and the worst case is half its width.
+  var ws, we, hardAll=false;
+  if(A.winStart!=null && A.winEnd!=null){
+    ws=A.winStart; we=A.winEnd;
+    if(we<=ws) we+=24;
+  } else {
+    var W={early_morning:[sr-1.5,sr+1.5],morning:[sr+1,12],afternoon:[12,16.5],
+      evening:[16.5,ss+1],night:[ss+0.5,24],late_night:[0,Math.max(1,sr-0.5)],
+      unknown:[0,24]};
+    var w=W[A.window]||W.unknown; ws=w[0]; we=w[1];
+    hardAll=(A.window==='unknown');
+  }
+  // What the family remembers is DIRECT evidence about the clock time, whereas
+  // build and temperament are indirect, self-reported guesses at the lagna.
+  // So the remembered window gates which minutes are eligible at all; the other
+  // evidence only chooses among them. A 45-minute grace band each side keeps
+  // fuzzy recollections ("it was evening") from being over-constrained.
+  var GRACE=Math.min(0.5,(we-ws)*0.15);
+  function windowLevel(h){            // 2 = inside, 1 = grace band, 0 = outside
+    if(hardAll)return 2;
+    var i1=(h>=ws&&h<=we)||(h+24>=ws&&h+24<=we);
+    if(i1)return 2;
+    var n1=(h>=ws-GRACE&&h<=we+GRACE)||(h+24>=ws-GRACE&&h+24<=we+GRACE);
+    return n1?1:0;
   }
   var s=0,e=24;
   var LS=new Array(12).fill(0);
@@ -991,7 +1358,15 @@ function rectify(inp){
   for(var h=s;h<e;h+=step){
     var r=sidAsc(inp.year,inp.month,inp.day,h,inp.lat,inp.lon,inp.tz);
     var si=Math.floor(r.lagna/30), sc=LS[si];
-    sc+=windowBonus(h);
+    var wl=windowLevel(h);
+    sc+=(wl===2?2.2:wl===1?1.0:0);
+    // Nudge toward the middle of the window. Real evidence still overrides this,
+    // but with nothing usable the centre is the error-minimising answer.
+    var mid=(ws+we)/2, halfw=(we-ws)/2;
+    if(halfw>0){
+      var hh2=h; if(hh2<ws-1) hh2+=24;
+      sc += 0.9*(1-Math.min(1,Math.abs(hh2-mid)/halfw));
+    }
     var dp=DP[A.delivery]; if(dp&&h>=dp[0]&&h<=dp[1])sc+=1.2;
     if(A.syllable&&A.syllable!=='unknown'&&SYL_GROUP[A.syllable]){
       var ml=moonLon(r.jd),nk=Math.floor(ml/(360/27)),pd=Math.floor((ml%(360/27))/(360/108));
@@ -1012,8 +1387,14 @@ function rectify(inp){
     if(A.window!=='unknown'){
       var cd=['early_morning','morning','afternoon'].indexOf(A.window)>=0;
       if(cd===isDay)sc+=0.5;}
-    curve.push({h:h,sc:sc,si:si});
-    if(!best||sc>best.sc)best={h:h,sc:sc,si:si,idx:curve.length-1};}
+    curve.push({h:h,sc:sc,si:si,wl:wl});
+    // Only minutes the person's own recollection allows can win.
+    if(wl>0 && (!best||sc>best.sc))best={h:h,sc:sc,si:si,idx:curve.length-1};}
+  if(!best){                          // no eligible minute: fall back to the day
+    for(var z2=0;z2<curve.length;z2++)
+      if(!best||curve[z2].sc>best.sc)best={h:curve[z2].h,sc:curve[z2].sc,
+                                           si:curve[z2].si,idx:z2};
+  }
   if(!best)return null;
   // The honest window is the full stretch during which the winning lagna was
   // rising inside our search window — not just the argmax minute.
@@ -1039,15 +1420,26 @@ function rectify(inp){
   // That intersection is the useful answer; its midpoint is the point estimate.
   var rs=bs, re=wrapped?be+24:be;
   if(!hardAll){
-    var g2=0.75, is=Math.max(rs,ws-g2), ie=Math.min(re,we+g2);
+    // Clip the reported span to the remembered window. If the lagna span sits
+    // entirely outside it, trust the recollection and report the window.
+    var is=Math.max(rs,ws-GRACE), ie=Math.min(re,we+GRACE);
     if(ie-is>=0.33){ rs=is; re=ie; }
+    else { rs=Math.max(0,ws-GRACE); re=we+GRACE; }
   }
   var ctr=(rs+re)/2;
   // The lagna fixes the coarse window; Sastri's day-constellation arithmetic
   // picks the actual minute inside it. Snap to the best compliant minute.
+  // With an explicit window, aim at the middle rather than an edge: that is what
+  // minimises worst-case error when the astrological evidence is thin.
+  if(A.winStart!=null && A.winEnd!=null){
+    var ov0=Math.max(rs,ws), ov1=Math.min(re,we);
+    ctr = (ov1-ov0>=0.33) ? (ov0+ov1)/2 : (ws+we)/2;
+    rs=ws; re=we;
+  }
   var bestSnap=null;
   for(var q=rs;q<=re;q+=1/60){
     var qh=q>=24?q-24:q;
+    if(windowLevel(qh)===0)continue;   // never snap outside the recollection
     var qj=sidAsc(inp.year,inp.month,inp.day,qh,inp.lat,inp.lon,inp.tz).jd;
     var qs=sastriScore(qh,sr,srPrev,jsDow,Math.floor(moonLon(qj)/(360/27))+1);
     if(qs===0)continue;
@@ -1070,17 +1462,215 @@ function rectify(inp){
   var cj=sidAsc(inp.year,inp.month,inp.day,ctr,inp.lat,inp.lon,inp.tz).jd;
   var mlc=moonLon(cj);
   var sastFinal=sastriScore(ctr,sr,srPrev,jsDow,Math.floor(mlc/(360/27))+1);
-  return {sastri:sastFinal,time:ctr,bs:bs,be:be,li:best.si,lagna:SIGNS[best.si],
+  // When the cascade gave an explicit window, that window IS the honest range.
+  if(A.winStart!=null && A.winEnd!=null){
+    bs=ws>=24?ws-24:ws; be=we>=24?we-24:we;
+    span=we-ws;
+    conf = span<=1.6 ? 'Kaafi pakka' : span<=2.6 ? 'Theek-thaak' : 'Mota-moti';
+  }
+  return {
+    sun:SIGNS[Math.floor(sunLon(cj)/30)],winWidth:(we-ws),
+    sastri:sastFinal,time:ctr,bs:bs,be:be,li:best.si,lagna:SIGNS[best.si],
     runner:srt[1]?SIGNS[srt[1][0]]:null,conf:conf,
     nak:NAKS[Math.floor(mlc/(360/27))],moon:SIGNS[Math.floor(mlc/30)],
     sunrise:sr,sunset:ss,traits:TRAITS[best.si]};}
 
+var __sunEvents=sunEvents;
 function fmt(h){var hh=Math.floor(h),mm=Math.round((h-hh)*60);
   if(mm===60){mm=0;hh++;} hh=hh%24;
   var ap=hh<12?'AM':'PM',d=hh%12; if(d===0)d=12;
   return d+':'+String(mm).padStart(2,'0')+' '+ap;}
 
 /* ---------------- KUNDALI SVG ---------------- */
+
+/* =========================================================
+   Time resolution, v2.
+
+   HARD filters (a minute is eliminated outright):
+     - birth star: the Moon must actually be in that nakshatra
+     - dark / light: the Sun must be on the right side of the horizon
+   These cannot be outvoted, so "it was dark" can never return a daytime answer.
+
+   SOFT votes (each adds to a score):
+     seven independent yes/no observations about the same moment. Each one
+     matched adds 2. A single wrong answer therefore costs 2 out of 14 and
+     shifts the peak slightly instead of moving it to the wrong half of the day.
+   ========================================================= */
+
+function inSpan(h, a, c){                 // handles ranges that cross midnight
+  if(c<=a) c+=24;
+  return (h>=a&&h<=c)||(h+24>=a&&h+24<=c);
+}
+
+/* Each vote maps a moment to true/false. Ranges are in local hours;
+   sr / ss are that day's actual sunrise and sunset. */
+var VOTES = {
+  /* ---- asked only when the person said DARK ---- */
+  // after midnight, before sunrise: splits the night in half
+  aftermid: function(h,sr,ss){ return h>=0 && h<sr; },
+  // people asleep: separates the early evening from the deep night
+  asleep:   function(h,sr,ss){ return inSpan(h, 22.5, sr+0.25); },
+  // shops still open: shutters come down well before the roads empty
+  shops:    function(h,sr,ss){ return inSpan(h, ss-0.25, 21.5); },
+  // Splits the stretch from midnight to sunrise, which the other three answer
+  // identically. Without this, everything after midnight is one 6-hour bucket.
+  predawn:  function(h,sr,ss){ return h>=sr/2 && h<sr; },
+
+  /* ---- asked only when the person said LIGHT ---- */
+  beforenoon: function(h,sr,ss){ return h<12; },
+  // low sun covers both ends of the day; 'before noon' tells them apart
+  lowsun:     function(h,sr,ss){ return inSpan(h, sr-0.25, sr+1.5)
+                                     || inSpan(h, ss-1.5, ss+0.25); },
+  highsun:    function(h,sr,ss){ return inSpan(h, 11, 14); },
+  // daytime trading hours: separates the very early morning from the rest
+  shopsday:   function(h,sr,ss){ return inSpan(h, 9.5, 20); }
+};
+var VOTE_KEYS = ['aftermid','asleep','shops','predawn',
+                 'beforenoon','lowsun','highsun','shopsday'];
+
+function resolveTime(inp){
+  var A=inp.answers, STEP=1/150;                    // one vighati
+  var se=sunEvents(inp.year,inp.month,inp.day,inp.lat,inp.lon,inp.tz);
+  var sr=se.sunrise, ss=se.sunset;
+  var sePrev=sunEvents(inp.year,inp.month,inp.day-1,inp.lat,inp.lon,inp.tz);
+  var srPrev=sePrev.sunrise;
+  var jsDow=new Date(Date.UTC(inp.year,inp.month-1,inp.day)).getUTCDay();
+
+  // ascendant votes from the birthmark, used only to break ties
+  var LS=new Array(12).fill(0);
+  if(A.mark && A.mark!=='none' && LIMB[A.mark]!==undefined){
+    LS[LIMB[A.mark]]+=1.2; LS[(LIMB[A.mark]+6)%12]+=0.5;
+  }
+
+  var nakWanted = (A.nak!=null && A.nak>=0) ? A.nak : null;   // 0-based
+  var grp = (A.syllable && A.syllable!=='unknown') ? SYL_GROUP[A.syllable] : null;
+
+  var pts=[], anyEligible=false;
+  for(var h=0; h<24; h+=STEP){
+    var r=sidAsc(inp.year,inp.month,inp.day,h,inp.lat,inp.lon,inp.tz);
+    var ml=moonLon(r.jd), nk=Math.floor(ml/(360/27));
+    var isDay = h>=sr && h<=ss;
+
+    // ---- hard filters ----
+    var ok=true;
+    if(nakWanted!==null && nk!==nakWanted) ok=false;
+    if(A.dark==='dark'  && isDay)  ok=false;
+    if(A.dark==='light' && !isDay) ok=false;
+
+    var sc=0, scV=0;
+    if(ok){
+      anyEligible=true;
+      for(var i=0;i<VOTE_KEYS.length;i++){
+        var k=VOTE_KEYS[i], ans=A.votes?A.votes[k]:null;
+        if(ans!=='y' && ans!=='n') continue;
+        var hit=VOTES[k](h,sr,ss);
+        if((ans==='y')===hit){ sc+=2; scV+=2; }
+      }
+      var si=Math.floor(r.lagna/30);
+      sc+=LS[si];
+      if(grp){
+        var pd=Math.floor((ml%(360/27))/(360/108));
+        var sy=PADA_SYL[nk]||[];
+        if(grp.indexOf(sy[pd])>=0) sc+=1.5;
+      }
+    }
+    // The Sastri grid repeats every 25 minutes. Including it here would chop the
+    // window into isolated points, so it is kept out and used only for snapping.
+    pts.push({h:h, ok:ok, sc:sc, scV:scV, si:Math.floor(r.lagna/30)});
+  }
+
+  // If the hard filters left nothing (e.g. the Moon never enters that nakshatra
+  // on this date), drop the nakshatra filter rather than returning nonsense.
+  if(!anyEligible && nakWanted!==null){
+    var relaxed={}; for(var kk in A) relaxed[kk]=A[kk];
+    relaxed.nak=null;
+    return resolveTime({year:inp.year,month:inp.month,day:inp.day,
+      lat:inp.lat,lon:inp.lon,tz:inp.tz,answers:relaxed, _relaxed:true});
+  }
+
+  var N=pts.length, best=-1;
+  for(var z=0;z<N;z++) if(pts[z].ok && (best<0 || pts[z].sc>pts[best].sc)) best=z;
+  if(best<0) return null;
+
+  // window = the contiguous eligible run around the peak that scores within
+  // one vote of it. That is the honest range, so its width sets the error bar.
+  // Each vote is worth 2, so a tolerance of 2 would swallow the neighbouring
+  // bucket. Keep it under one vote so the window is the matching stretch only.
+  var TOL=1.0, lo=best, hi=best, guard=0;
+  while(guard++<N){
+    var p=(lo-1+N)%N;
+    if(!pts[p].ok || pts[p].sc < pts[best].sc-TOL) break;
+    lo=p;
+  }
+  guard=0;
+  while(guard++<N){
+    var q=(hi+1)%N;
+    if(!pts[q].ok || pts[q].sc < pts[best].sc-TOL) break;
+    hi=q;
+  }
+  var a=pts[lo].h, c=pts[hi].h, wrapped=c<a;
+  var width=wrapped?(c+24-a):(c-a);
+  var MINW=25/60;                       // one Sastri step; anything less is false precision
+  if(width<MINW){ var mid0=a+width/2; a=mid0-MINW/2; c=mid0+MINW/2; width=MINW;
+    if(a<0){a+=24;} if(c>=24){c-=24;} wrapped=c<a; }
+  var ctr=a+width/2; if(ctr>=24)ctr-=24;
+
+  // snap to the nearest Sastri-compliant minute inside the window
+  var bestSnap=null;
+  for(var t=0;t<=width;t+=1/60){
+    var hh=a+t; if(hh>=24)hh-=24;
+    var jd=sidAsc(inp.year,inp.month,inp.day,hh,inp.lat,inp.lon,inp.tz).jd;
+    var s2=sastriScore(hh,sr,srPrev,jsDow,Math.floor(moonLon(jd)/(360/27))+1);
+    var near=Math.abs(hh-ctr); if(near>12)near=24-near;
+    if(!bestSnap || s2>bestSnap.s || (s2===bestSnap.s && near<bestSnap.near))
+      bestSnap={h:hh,s:s2,near:near};
+  }
+  if(bestSnap && bestSnap.s>0) ctr=bestSnap.h;
+
+  // Widening for disagreement can nudge the centre a minute past a hard
+  // boundary, so pull it back to the nearest minute that still qualifies.
+  (function clampToEligible(){
+    var idx=Math.round(ctr/STEP)%N;
+    if(pts[idx] && pts[idx].ok) return;
+    for(var off=1; off<N/2; off++){
+      var lft=pts[(idx-off+N)%N], rgt=pts[(idx+off)%N];
+      if(lft && lft.ok){ ctr=lft.h; return; }
+      if(rgt && rgt.ok){ ctr=rgt.h; return; }
+    }
+  })();
+  var cj=sidAsc(inp.year,inp.month,inp.day,ctr,inp.lat,inp.lon,inp.tz);
+  var mlc=moonLon(cj.jd), nkc=Math.floor(mlc/(360/27));
+  var li=Math.floor(cj.lagna/30);
+  // How well does the best minute actually agree with what they told us?
+  var answered=0;
+  for(var vk=0;vk<VOTE_KEYS.length;vk++){
+    var av=A.votes?A.votes[VOTE_KEYS[vk]]:null;
+    if(av==='y'||av==='n') answered++;
+  }
+  var agree = answered ? (pts[best].scV/(2*answered)) : 1;
+  // Calibrated to the measured widths of this four-question design.
+  var conf = width<=1.5 ? 'Kaafi pakka' : width<=3.0 ? 'Theek-thaak' : 'Mota-moti';
+  // Contradictory answers must not be reported as a precise result.
+  // With only four questions per branch there is no redundancy, so one
+  // disagreement is already a real signal. Widen and drop confidence rather
+  // than reporting a precise-looking answer we cannot support.
+  if(agree < 0.8){
+    conf='Mota-moti';
+    var grow=(1-agree)*4;                       // widen honestly instead of guessing
+    a-=grow/2; c+=grow/2; width+=grow;
+    if(a<0)a+=24; if(c>=24)c-=24;
+    ctr=a+width/2; if(ctr>=24)ctr-=24;
+  }
+
+  return {
+    time:ctr, bs:a, be:c, winWidth:width,
+    li:li, lagna:SIGNS[li], runner:null, conf:conf,
+    nak:NAKS[nkc], moon:SIGNS[Math.floor(mlc/30)],
+    sun:SIGNS[Math.floor(sunLon(cj.jd)/30)],
+    sastri:sastriScore(ctr,sr,srPrev,jsDow,nkc+1),
+    sunrise:sr, sunset:ss, traits:TRAITS[li], relaxed:!!inp._relaxed
+  };
+}
 
 // North Indian chart: square + both diagonals + inner diamond.
 function kundaliPaths(S){
@@ -1257,17 +1847,18 @@ var PLACES=(function(){
 })();
 var STATE_NAMES=Object.keys(PLACES).sort();
 
-var state={step:-1,setup:{},answers:{},result:null};
+var state={step:-1,setup:{},answers:{},result:null,
+  phase:'setup',cnode:null,cpath:[],win:null,sun:null};
 var main=$('quizMain');
 
 function setProgress(){
-  var n=S.questions.length;
-  var pct = state.step<0 ? 3 : Math.min(100,((state.step+1)/(n+1))*100);
-  if(state.result)pct=100;
+  var PH={setup:0,cascade:1,mark:2,star:3,result:4};
+  var st=PH[state.phase]!==undefined?PH[state.phase]:4;
+  var pct=[4,35,70,88,100][st];
   $('progFill').style.width=pct+'%';
-  $('progLabel').textContent = state.step<0 ? S.progStart
-    : state.result ? S.progDone : S.qOf(state.step+1);
-  var lit = state.step<0 ? 0 : Math.round(((state.step+1)/(n+1))*12);
+  $('progLabel').textContent = state.phase==='setup' ? S.progStart
+    : state.phase==='result' ? S.progDone : S.phaseLabel[state.phase];
+  var lit = Math.round((pct/100)*12);
   for(var i=0;i<12;i++){
     var el=$('M'+i); if(!el)continue;
     el.classList.remove('locked');
@@ -1287,41 +1878,271 @@ function optHTML(v,label,note,sel){
     (note?'<small>'+esc(note)+'</small>':'')+'</span></button>';
 }
 
+
+/* ---------------- INLINE CALENDAR ----------------
+   Three views so a birth year takes a few taps rather than decades of arrows:
+   days, tap the header for months, tap again for a grid of years.
+   Impossible dates cannot be produced, which removes a whole class of error. */
+var cal = {view:'day', y:2000, m:0, sel:null};
+function daysInMonth(y,m){ return new Date(y,m+1,0).getDate(); }
+
+function renderCalendar(){
+  var host=$('cal'); if(!host) return;
+  var out='', now=new Date().getFullYear();
+  if(cal.view==='day'){
+    out+='<div class="cal-head">'
+       + '<button type="button" class="cal-nav" data-go="-1" aria-label="Previous month">&#8249;</button>'
+       + '<button type="button" class="cal-title" data-view="month">'
+       + esc(S.months[cal.m])+' '+cal.y+'</button>'
+       + '<button type="button" class="cal-nav" data-go="1" aria-label="Next month">&#8250;</button>'
+       + '</div><div class="cal-grid">';
+    S.wdays.forEach(function(d){ out+='<div class="cal-wd">'+esc(d)+'</div>'; });
+    var first=new Date(cal.y,cal.m,1).getDay(), n=daysInMonth(cal.y,cal.m);
+    for(var i=0;i<first;i++) out+='<div></div>';
+    for(var d=1;d<=n;d++){
+      var isSel = cal.sel && cal.sel.y===cal.y && cal.sel.m===cal.m && cal.sel.d===d;
+      out+='<button type="button" class="cal-day'+(isSel?' sel':'')+'"'
+         + (cal.y>now?' disabled':'')+' data-d="'+d+'">'+d+'</button>';
+    }
+    out+='</div>';
+  } else if(cal.view==='month'){
+    out+='<div class="cal-head">'
+       + '<button type="button" class="cal-nav" data-yr="-1" aria-label="Previous year">&#8249;</button>'
+       + '<button type="button" class="cal-title" data-view="year">'+cal.y+'</button>'
+       + '<button type="button" class="cal-nav" data-yr="1" aria-label="Next year">&#8250;</button>'
+       + '</div><div class="cal-mg">';
+    S.monthsShort.forEach(function(mn,i){
+      out+='<button type="button" class="cal-cell'+(i===cal.m?' sel':'')+'" data-m="'+i+'">'
+         + esc(mn)+'</button>'; });
+    out+='</div>';
+  } else {
+    var start=Math.floor((cal.y-1900)/12)*12+1900;
+    out+='<div class="cal-head">'
+       + '<button type="button" class="cal-nav" data-dec="-1" aria-label="Earlier years">&#8249;</button>'
+       + '<span class="cal-title as-text">'+start+' &ndash; '+(start+11)+'</span>'
+       + '<button type="button" class="cal-nav" data-dec="1" aria-label="Later years">&#8250;</button>'
+       + '</div><div class="cal-mg">';
+    for(var k=0;k<12;k++){
+      var yy=start+k;
+      out+='<button type="button" class="cal-cell'+(yy===cal.y?' sel':'')+'"'
+         + (yy>now?' disabled':'')+' data-y="'+yy+'">'+yy+'</button>';
+    }
+    out+='</div>';
+  }
+  host.innerHTML=out;
+  host.onclick=function(ev){
+    var t=ev.target.closest('button'); if(!t||t.disabled) return;
+    ev.preventDefault();
+    var ds=t.dataset;
+    if(ds.view){ cal.view=ds.view; return renderCalendar(); }
+    if(ds.go){ cal.m+= +ds.go;
+      if(cal.m<0){cal.m=11;cal.y--;} if(cal.m>11){cal.m=0;cal.y++;}
+      return renderCalendar(); }
+    if(ds.yr){ cal.y+= +ds.yr; return renderCalendar(); }
+    if(ds.dec){ cal.y+= (+ds.dec)*12; return renderCalendar(); }
+    if(ds.m!==undefined){ cal.m=+ds.m; cal.view='day'; return renderCalendar(); }
+    if(ds.y!==undefined){ cal.y=+ds.y; cal.view='month'; return renderCalendar(); }
+    if(ds.d!==undefined){
+      cal.sel={y:cal.y,m:cal.m,d:+ds.d};
+      var lbl=$('calLabel');
+      if(lbl) lbl.textContent=cal.sel.d+' '+S.months[cal.sel.m]+' '+cal.sel.y;
+      var er=$('err'); if(er) er.textContent='';
+      return renderCalendar();
+    }
+  };
+}
+/* ---------------- BAND ---------------- */
+function fmtSpan(w){
+  var m=Math.round((w[1]-w[0])*60);
+  if(m>=120) return (m/60).toFixed(m%60?1:0)+'h';
+  return m+' min';
+}
+/* A 24-hour band that contracts as answers come in, so the person can see the
+   search range closing rather than just being asked more questions. */
+function renderBand(){
+  var host=$('band'); if(!host) return;
+  var w=null;
+  if(state.result){
+    w=[state.result.bs, state.result.be<=state.result.bs
+       ? state.result.be+24 : state.result.be];
+  } else if(state.setup.year && (state.answers.dark!==undefined || state.answers.nak!=null)){
+    try{
+      var pv=resolveTime({year:state.setup.year,month:state.setup.month,day:state.setup.day,
+        lat:state.setup.lat,lon:state.setup.lon,tz:state.setup.tz,
+        answers:{nak:state.answers.nak,dark:state.answers.dark,
+                 votes:state.answers.votes||{},mark:'none',syllable:'unknown'}});
+      if(pv) w=[pv.bs, pv.be<=pv.bs?pv.be+24:pv.be];
+    }catch(err){}
+  }
+  var W=760,H=34,pad=1, x=function(h){ return pad+(h/24)*(W-2*pad); };
+  var o='<svg class="band-svg" viewBox="0 0 '+W+' '+H+'" preserveAspectRatio="none">';
+  o+='<rect x="0" y="8" width="'+W+'" height="14" rx="7" fill="rgba(22,26,36,.07)"/>';
+  if(w){
+    var segs = w[1]<=24 ? [[w[0],w[1]]] : [[w[0],24],[0,w[1]-24]];
+    segs.forEach(function(s){
+      o+='<rect x="'+x(s[0])+'" y="8" width="'+Math.max(2,x(s[1])-x(s[0]))+
+         '" height="14" rx="7" fill="var(--brand-mud)"/>';
+    });
+  } else {
+    o+='<rect x="'+pad+'" y="8" width="'+(W-2*pad)+'" height="14" rx="7" fill="rgba(128,48,3,.30)"/>';
+  }
+  [0,6,12,18,24].forEach(function(h){
+    o+='<line x1="'+x(h)+'" y1="24" x2="'+x(h)+'" y2="29" stroke="var(--oat-400)" stroke-width="1"/>';
+  });
+  host.innerHTML=o+'</svg>';
+  $('bandLabel').textContent = w ? fmtSpan(w)+' '+S.bandLeft : S.bandStart;
+}
+
+/* ---------------- FLOW: star -> dark -> votes -> birthmark ---------------- */
+function F(){ return FLOW[LANG]; }
+
+/* Only the questions that can narrow this half of the day. Someone who said
+   "dark" is never asked about shadows, and vice versa. */
+function voteSet(){
+  var f=F();
+  if(state.answers.dark==='dark')  return f.votesDark;
+  if(state.answers.dark==='light') return f.votesLight;
+  return f.votesUnsure;
+}
+
+
+function renderNakAsk(){
+  var f=F();
+  main.innerHTML=
+    '<div class="step-n">'+esc(S.starEyebrow)+'</div>'+
+    '<div class="q-text">'+esc(f.nakAsk.q)+'</div>'+
+    '<p class="q-help">'+esc(f.nakAsk.help)+'</p>'+
+    '<div class="opts">'+
+      '<button class="opt" data-v="y"><span class="mark"></span><span class="lab">'+esc(f.nakAsk.yes)+'</span></button>'+
+      '<button class="opt" data-v="n"><span class="mark"></span><span class="lab">'+esc(f.nakAsk.no)+'</span></button>'+
+    '</div><div class="q-nav"></div>';
+  Array.prototype.forEach.call(main.querySelectorAll('.opt'),function(b){
+    b.onclick=function(){
+      if(b.getAttribute('data-v')==='y'){ state.phase='nakPick'; }
+      else { state.answers.nak=null; state.phase='dark'; }
+      render();
+    };
+  });
+}
+
+function renderNakPick(){
+  var f=F();
+  var o=f.nakList.map(function(n){
+    return '<button class="opt compact" data-v="'+n.v+'"><span class="mark"></span>'+
+           '<span class="lab">'+esc(n.l)+'</span></button>'; }).join('');
+  main.innerHTML=
+    '<div class="step-n">'+esc(S.starEyebrow)+'</div>'+
+    '<div class="q-text">'+esc(f.nakPick.q)+'</div>'+
+    '<p class="q-help">'+esc(f.nakPick.help)+'</p>'+
+    '<div class="opts">'+o+'</div>'+
+    '<div class="q-nav"><button class="back" id="bk">'+esc(S.back)+'</button></div>';
+  Array.prototype.forEach.call(main.querySelectorAll('.opt'),function(b){
+    b.onclick=function(){ state.answers.nak=+b.getAttribute('data-v');
+      state.phase='dark'; render(); };
+  });
+  $('bk').onclick=function(){ state.phase='nakAsk'; render(); };
+}
+
+function renderDark(){
+  var f=F();
+  var o=f.darkAsk.opts.map(function(op){
+    return '<button class="opt" data-v="'+esc(op.v)+'"><span class="mark"></span>'+
+           '<span class="lab">'+esc(op.l)+'</span></button>'; }).join('');
+  main.innerHTML=
+    '<div class="step-n">'+esc(S.cascadeEyebrow)+'</div>'+
+    '<div class="q-text">'+esc(f.darkAsk.q)+'</div>'+
+    '<p class="q-help">'+esc(f.darkAsk.help)+'</p>'+
+    '<div class="opts">'+o+'</div>'+
+    '<div class="q-nav"><button class="back" id="bk">'+esc(S.back)+'</button></div>';
+  Array.prototype.forEach.call(main.querySelectorAll('.opt'),function(b){
+    b.onclick=function(){
+      state.answers.dark=b.getAttribute('data-v')||null;
+      state.answers.votes={};        // drop anything from the other branch
+      state.vi=0; state.phase='votes'; render();
+    };
+  });
+  $('bk').onclick=function(){
+    state.phase = state.answers.nak!=null ? 'nakPick' : 'nakAsk'; render(); };
+}
+
+function renderVote(){
+  var f=F(), set=voteSet(), v=set[state.vi];
+  main.innerHTML=
+    '<div class="step-n">'+esc(S.cascadeEyebrow)+' &middot; '+(state.vi+1)+'/'+set.length+'</div>'+
+    '<div class="q-text">'+esc(v.q)+'</div>'+
+    '<p class="q-help">'+esc(f.voteHelp)+'</p>'+
+    '<div class="opts">'+
+      // each question names its own answers, so nobody has to mentally negate
+      '<button class="opt" data-v="y"><span class="mark"></span><span class="lab">'+esc(v.yl||f.yes)+'</span></button>'+
+      '<button class="opt" data-v="n"><span class="mark"></span><span class="lab">'+esc(v.nl||f.no)+'</span></button>'+
+      '<button class="opt" data-v="?"><span class="mark"></span><span class="lab">'+esc(f.dunno)+'</span></button>'+
+    '</div>'+
+    '<div class="q-nav"><button class="back" id="bk">'+esc(S.back)+'</button></div>';
+  Array.prototype.forEach.call(main.querySelectorAll('.opt'),function(b){
+    b.onclick=function(){
+      state.answers.votes[v.k]=b.getAttribute('data-v');
+      if(state.vi < set.length-1) state.vi++;
+      else state.phase='mark';
+      render();
+    };
+  });
+  $('bk').onclick=function(){
+    if(state.vi>0) state.vi--; else state.phase='dark';
+    render();
+  };
+}
+
+/* ---------------- BIRTHMARK ---------------- */
+function renderMark(){
+  var Q=null;
+  for(var i=0;i<S.questions.length;i++) if(S.questions[i].key==='mark') Q=S.questions[i];
+  var o=Q.opts.map(function(op){
+    return '<button class="opt" data-v="'+esc(op.v)+'"><span class="mark"></span>'+
+           '<span class="lab">'+esc(op.l)+'</span></button>'; }).join('');
+  main.innerHTML=
+    '<div class="step-n">'+esc(S.markEyebrow)+'</div>'+
+    '<div class="q-text">'+esc(Q.q)+'</div>'+
+    '<p class="q-help">'+esc(Q.help)+'</p>'+
+    '<div class="opts">'+o+'</div>'+
+    '<div class="q-nav"><button class="back" id="bk">'+esc(S.back)+'</button></div>';
+  Array.prototype.forEach.call(main.querySelectorAll('.opt'),function(b){
+    b.onclick=function(){
+      state.answers.mark=b.getAttribute('data-v');
+      state.phase='result'; render();
+    };
+  });
+  $('bk').onclick=function(){
+    state.phase='votes'; state.vi=voteSet().length-1; render();
+  };
+}
+
 function renderSetup(){
-  var y=new Date().getFullYear(), days='',months='',years='',statesOpt='';
-  for(var d=1;d<=31;d++)days+='<option>'+d+'</option>';
-  for(var m=0;m<12;m++)months+='<option value="'+(m+1)+'">'+esc(S.months[m])+'</option>';
-  for(var yy=y;yy>=1940;yy--)years+='<option>'+yy+'</option>';
-  statesOpt='<option value="">'+esc(S.choose)+'</option>';
+  var statesOpt='<option value="">'+esc(S.choose)+'</option>';
   STATE_NAMES.forEach(function(s){ statesOpt+='<option>'+esc(s)+'</option>'; });
 
   main.innerHTML=
     '<div class="step-n">'+esc(S.setupEyebrow)+'</div>'+
     '<div class="q-text">'+esc(S.setupH)+'</div>'+
     '<p class="q-help">'+esc(S.setupHelp)+'</p>'+
-    '<div class="fields">'+
-      '<div class="field"><label for="fd">'+esc(S.fDay)+'</label><select id="fd">'+days+'</select></div>'+
-      '<div class="field"><label for="fm">'+esc(S.fMonth)+'</label><select id="fm">'+months+'</select></div>'+
+    '<div class="field"><label>'+esc(S.fDate)+'</label>'+
+      '<div class="cal-label" id="calLabel">'+esc(S.pickDate)+'</div>'+
+      '<div class="cal" id="cal"></div>'+
     '</div>'+
     '<div class="fields">'+
-      '<div class="field"><label for="fy">'+esc(S.fYear)+'</label><select id="fy">'+years+'</select></div>'+
       '<div class="field"><label for="fs">'+esc(S.fState)+'</label><select id="fs">'+statesOpt+'</select></div>'+
-    '</div>'+
-    '<div class="fields">'+
       '<div class="field"><label for="fc">'+esc(S.fCity)+'</label>'+
         '<select id="fc" disabled><option value="">'+esc(S.cityPick)+'</option></select></div>'+
-      '<div class="field"></div>'+
     '</div>'+
     '<div class="err" id="err"></div>'+
     '<div class="q-nav"><button class="btn" id="goBtn">'+esc(S.setupBtn)+'</button></div>';
 
-  $('fy').value='2000';
+  if(cal.sel) $('calLabel').textContent=cal.sel.d+' '+S.months[cal.sel.m]+' '+cal.sel.y;
+  renderCalendar();
 
   $('fs').onchange=function(){
     var rows=PLACES[this.value]||[], fc=$('fc');
     if(!rows.length){
-      fc.innerHTML='<option value="">'+esc(S.cityPick)+'</option>';
-      fc.disabled=true; return;
+      fc.innerHTML='<option value="">'+esc(S.cityPick)+'</option>'; fc.disabled=true; return;
     }
     var o='<option value="">'+esc(S.choose)+'</option>';
     for(var i=0;i<rows.length;i++)
@@ -1331,14 +2152,14 @@ function renderSetup(){
 
   $('goBtn').onclick=function(){
     var err=$('err');
+    if(!cal.sel){ err.textContent=S.errDate; return; }
     if(!$('fs').value){ err.textContent=S.errState; return; }
     if(!$('fc').value){ err.textContent=S.errCity; return; }
-    var d=+$('fd').value,m=+$('fm').value,yv=+$('fy').value;
-    var dim=new Date(yv,m,0).getDate();
-    if(d>dim){ err.textContent=S.errDays(S.months[m-1],yv,dim); return; }
     var cc=$('fc').value.split(',');
-    state.setup={year:yv,month:m,day:d,lat:+cc[0],lon:+cc[1],tz:5.5};
-    state.step=0; render();
+    state.setup={year:cal.sel.y,month:cal.sel.m+1,day:cal.sel.d,
+                 lat:+cc[0],lon:+cc[1],tz:5.5};
+    state.sun=__sunEvents(cal.sel.y,cal.sel.m+1,cal.sel.d,+cc[0],+cc[1],5.5);
+    state.phase='nakAsk'; state.answers.votes={}; state.vi=0; render();
   };
 }
 
@@ -1394,8 +2215,11 @@ function sAlt(sg){  return LANG==='en' ? sg.sa : sg.en; }
 var CONF={ 'Kaafi pakka':'confHigh', 'Theek-thaak':'confMid', 'Mota-moti':'confLow' };
 
 function renderResult(){
-  var r=rectify({year:state.setup.year,month:state.setup.month,day:state.setup.day,
-    lat:state.setup.lat,lon:state.setup.lon,tz:state.setup.tz,answers:state.answers});
+  var r=resolveTime({year:state.setup.year,month:state.setup.month,day:state.setup.day,
+    lat:state.setup.lat,lon:state.setup.lon,tz:state.setup.tz,
+    answers:{nak:state.answers.nak, dark:state.answers.dark,
+             votes:state.answers.votes||{}, mark:state.answers.mark||'none',
+             syllable:'unknown'}});
   state.result=r;
   var lg=r.lagna;
   var verify = r.sastri===2
@@ -1413,6 +2237,7 @@ function renderResult(){
       '<div class="rc"><div class="k">'+esc(S.cLagna)+'</div><div class="v">'+esc(sName(lg))+'</div></div>'+
       '<div class="rc"><div class="k">'+esc(S.cNak)+'</div><div class="v">'+esc(r.nak)+'</div></div>'+
       '<div class="rc"><div class="k">'+esc(S.cMoon)+'</div><div class="v">'+esc(sName(r.moon))+'</div></div>'+
+      '<div class="rc"><div class="k">'+esc(S.cSun)+'</div><div class="v">'+esc(sName(r.sun))+'</div></div>'+
     '</div>'+
     '<div class="res-read"><h4>'+esc(S.readH(sName(lg)))+'</h4>'+
       '<p>'+esc(S.readP(sName(lg),sAlt(lg),S.traits[r.li][0],S.traits[r.li][1]))+'</p>'+
@@ -1449,17 +2274,44 @@ function renderResult(){
       b.textContent=S.shareDone; setTimeout(function(){ b.textContent=S.shareCp; },1800); });
   };
   $('again').onclick=function(){
-    state={step:-1,setup:{},answers:{},result:null};
+    state={step:-1,setup:{},answers:{},result:null,
+      phase:'setup',cnode:null,cpath:[],win:null,sun:null};
     render(); $('quiz').scrollIntoView({behavior:'smooth'});
   };
 }
 
+/* Flow: setup -> time cascade -> birthmark -> birth star -> result */
 function render(){
-  if(state.step<0)renderSetup();
-  else if(state.step<S.questions.length)renderQ();
-  else renderResult();
+  if(state.phase==='setup')         renderSetup();
+  else if(state.phase==='nakAsk')   renderNakAsk();
+  else if(state.phase==='nakPick')  renderNakPick();
+  else if(state.phase==='dark')     renderDark();
+  else if(state.phase==='votes')    renderVote();
+  else if(state.phase==='mark')     renderMark();
+  else                              renderResult();
+  renderBand();
   setProgress();
+
+  // Scrolling rules:
+  //  - questions (including Back): keep the card where it is. Only pull it into
+  //    view if it has drifted off screen, so the page never jumps under a tap.
+  //  - result: land on the time itself, and go no further.
+  if(state.phase==='result'){
+    var t=document.querySelector('.res-time');
+    if(t) requestAnimationFrame(function(){
+      window.scrollTo({top: t.getBoundingClientRect().top+window.scrollY-96,
+                       behavior:'smooth'});
+    });
+  } else if(state.phase!=='setup'){
+    var card=document.querySelector('.quiz-shell');
+    if(card){
+      var r=card.getBoundingClientRect();
+      if(r.top < 0 || r.top > window.innerHeight*0.5)
+        window.scrollTo({top: r.top+window.scrollY-72, behavior:'auto'});
+    }
+  }
 }
+
 /* Reveal the app bar once the hero is out of the way; dismissible. */
 (function appBar(){
   var bar=$('appbar'), dismissed=false;
